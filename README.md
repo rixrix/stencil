@@ -1,4 +1,4 @@
-A simple boilerplate for frontend development with GulpJS, AngularJS, Browserify, Livereload, Stylus
+Stencil
 ===========================================================
 
-more details later
+A simple boilerplate for frontend development with GulpJS, AngularJS, Browserify, Livereload, Stylus
