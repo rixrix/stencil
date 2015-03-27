@@ -7,7 +7,7 @@ require('angular-route/angular-route');
 require('angular-sanitize/angular-sanitize');
 
 require('./templates');
-require('./modules/main/main-controller');
+require('./main/main-controller');
 
 var app = angular.module('Stencil', [
     'ngRoute',

@@ -1,4 +1,4 @@
-/// <reference path="../../libs.d.ts" />
+/// <reference path="../libs.d.ts" />
 
 export class MainController {
     static $inject = ['$scope'];

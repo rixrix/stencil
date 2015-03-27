@@ -1,3 +1,4 @@
+var path = require('path');
 
 var gulp = require('gulp');
 var clean = require("gulp-clean");
@@ -14,16 +15,40 @@ var minifyHTML = require('gulp-minify-html');
 var livereloadInjector = require('connect-livereload');
 var concat = require('gulp-concat');
 
+
+var boilerPlateName = 'stencil';
+var angularJsTemplateFilename = 'templates.js';
+var stencilJsFilename = boilerPlateName + '.js';
+var compiledStencilJsFilename = 'compiled.' + stencilJsFilename;
+var compiledStencilCssFilename = 'compiled.' + boilerPlateName + '.css';
+var appIndexHtmlFilename = 'index.html';
+
 var paths = {
     ts: 'app/**/*.ts',
     build: './build/app',
     dist: './dist',
-    html: 'app/index.html',
-    templates: 'app/modules/**/*.html',
-    css: ['app/assets/**/*.css'],
-    fonts: ['app/assets/**/*.eot', 'app/assets/**/*.svg', 'app/assets/**/*.ttf', 'app/assets/**/*.woff'],
-    assets: ['app/assets/**/*.*'],
-    image: ['app/assets/**/*.png', 'app/assets/**/*.jpg', 'app/assets/**/*.gif']
+    html: 'app/' + appIndexHtmlFilename,
+    templates: [
+        'app/**/*.html',
+        '!app/assets/**/*.html'
+    ],
+    css: [
+        'app/assets/**/*.css'
+    ],
+    fonts: [
+        'app/assets/**/*.eot',
+        'app/assets/**/*.svg',
+        'app/assets/**/*.ttf',
+        'app/assets/**/*.woff'
+    ],
+    assets: [
+        'app/assets/**/*.*'
+    ],
+    image: [
+        'app/assets/**/*.png',
+        'app/assets/**/*.jpg',
+        'app/assets/**/*.gif'
+    ]
 };
 
 gulp.task('compile-typescript', function() {
@@ -41,23 +66,23 @@ gulp.task('clean', function() {
 
 gulp.task('copy-html', function() {
     return gulp.src(paths.html)
-        .pipe(concat('index.html'))
+        .pipe(concat(appIndexHtmlFilename))
         .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('copy-assets', function() {
     return gulp.src(paths.assets)
-        .pipe(gulp.dest(paths.build + '/assets'));
+        .pipe(gulp.dest(path.join(paths.build, '/assets')));
 });
 
 gulp.task('copy-css', function() {
     return gulp.src(paths.css)
-        .pipe(concat('compiled.stencil.css'))
+        .pipe(concat(compiledStencilCssFilename))
         .pipe(gulp.dest(paths.build));
 });
 
 function browserifier() {
-    return browserify(paths.build + '/stencil.js', {
+    return browserify(paths.build + '/' + stencilJsFilename, {
         fullPaths: false,
         cache: {},
         packageCache: {},
@@ -67,7 +92,7 @@ function browserifier() {
 gulp.task('browserify', function(){
     return browserifier()
     .bundle()
-    .pipe(source('compiled.stencil.js'))
+    .pipe(source(compiledStencilJsFilename))
     .pipe(gulp.dest(paths.build));
 });
 
@@ -82,7 +107,7 @@ gulp.task('watchify', function() {
     function rebundle() {
         return browseritor.bundle()
             .on('error', util.log.bind(util, 'Browserify Error'))
-            .pipe(source('compiled.stencil.js'))
+            .pipe(source(compiledStencilJsFilename))
             .pipe(gulp.dest(paths.build));
     }
 
@@ -90,9 +115,10 @@ gulp.task('watchify', function() {
 });
 
 gulp.task('compile-templates', function() {
-    return gulp.src([paths.templates])
+    return gulp.src(paths.templates)
         .pipe(minifyHTML())
-        .pipe(templateCache({
+        .pipe(templateCache(
+            angularJsTemplateFilename, {
             module: 'Templates',
             moduleSystem: 'Browserify',
             standalone: true
@@ -110,9 +136,9 @@ gulp.task('watches', function() {
     // post-build watcher(s)
     gulp.watch(paths.build + '/**/*.css')
         .on('change', livereload.changed);
-    gulp.watch(paths.build + '/stencil.js')
+    gulp.watch(path.join(paths.build, stencilJsFilename))
         .on('change', livereload.changed);
-    gulp.watch(paths.build + '/index.html')
+    gulp.watch(path.join(paths.build, appIndexHtmlFilename))
         .on('change', livereload.changed);
 
 });
@@ -136,9 +162,9 @@ gulp.task('copy-images', function(){
 
 gulp.task('copy-builds-to-dist', function(){
     gulp.src([
-        paths.build + '/index.html',
-        paths.build + '/compiled.stencil.css',
-        paths.build + '/compiled.stencil.js'
+        path.join(paths.build, appIndexHtmlFilename),
+        path.join(paths.build, compiledStencilCssFilename),
+        path.join(paths.build, compiledStencilJsFilename)
     ])
     .pipe(gulp.dest(paths.dist));
 
