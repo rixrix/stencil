@@ -33,7 +33,7 @@ var paths = {
         '!app/assets/**/*.html'
     ],
     css: [
-        'app/assets/**/*.css'
+        'app/**/*.css'
     ],
     fonts: [
         'app/assets/**/*.eot',
@@ -95,7 +95,8 @@ gulp.task('copy-assets', function() {
 gulp.task('copy-css', function() {
     return gulp.src(paths.css)
         .pipe(concat(compiledStencilCssFilename))
-        .pipe(gulp.dest(paths.build));
+        .pipe(gulp.dest(paths.build))
+        .pipe(livereload());
 });
 
 gulp.task('browserify', function(){
@@ -144,7 +145,6 @@ gulp.task('watches', function() {
 
     // post-build watcher(s)
     gulp.watch([
-        path.join(paths.build, compiledStencilCssFilename),
         path.join(paths.build, compiledStencilJsFilename),
         path.join(paths.build, appIndexHtmlFilename)
     ], {
