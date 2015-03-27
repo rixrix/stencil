@@ -9,18 +9,18 @@ var livereload = require('gulp-livereload');
 var livereloadInjector = require('connect-livereload');
 var minifyHTML = require('gulp-minify-html');
 var runSequence = require('run-sequence');
-var source = require('vinyl-source-stream');
+var sourceStream = require('vinyl-source-stream');
 var templateCache = require('gulp-angular-templatecache');
 var ts = require('gulp-typescript');
 var util = require('gulp-util');
 var watchify = require('watchify');
-
+var stylus = require('gulp-stylus');
 
 var appIndexHtmlFilename = 'index.html';
 var boilerPlateName = 'stencil';
 var compiledJsTemplateFilename = 'templates.js';
 var compiledStencilCssFilename = 'compiled.' + boilerPlateName + '.css';
-var compiledStencilJsFilename = 'compiled.' + stencilJsFilename;
+var compiledStencilJsFilename = 'compiled.' + boilerPlateName + '.js';
 var stencilJsFilename = boilerPlateName + '.js';
 
 var sources = {
@@ -48,6 +48,9 @@ var sources = {
         'app/assets/**/*.png',
         'app/assets/**/*.jpg',
         'app/assets/**/*.gif'
+    ],
+    stylus: [
+        'app/**/*.styl'
     ]
 };
 
@@ -106,7 +109,7 @@ gulp.task('watchify', function() {
     function rebundle() {
         return browseritor.bundle()
         .on('error', util.log.bind(util, 'Browserify Error'))
-        .pipe(source(compiledStencilJsFilename))
+        .pipe(sourceStream(compiledStencilJsFilename))
         .pipe(gulp.dest(sources.build));
     }
 
@@ -176,6 +179,14 @@ gulp.task('compile-typescript', function() {
     .pipe(gulp.dest(sources.build));
 });
 
+gulp.task('compile-stylus', function() {
+    return gulp.src(sources.stylus)
+    .pipe(stylus())
+    .pipe(concat(compiledStencilCssFilename))
+    .pipe(gulp.dest(sources.build))
+    .pipe(livereload());
+});
+
 /***********************************************************************************************************************
  * Bulk Tasks
  **********************************************************************************************************************/
@@ -183,7 +194,7 @@ gulp.task('compile-typescript', function() {
 gulp.task('watches', function() {
 
     gulp.watch(sources.html, ['copy-html']);
-    gulp.watch(sources.css, ['copy-css']);
+    gulp.watch(sources.stylus, ['compile-stylus']);
     gulp.watch(sources.ts, ['compile-typescript']);
     gulp.watch(sources.templates, ['compile-templates']);
 
@@ -204,8 +215,8 @@ gulp.task('dev', function() {
         'clean',
         'copy-assets',
         'copy-html',
-        'copy-css',
         'copy-images',
+        'compile-stylus',
         'compile-typescript',
         'compile-templates',
         'watchify',
