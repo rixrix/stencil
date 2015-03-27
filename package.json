@@ -1,13 +1,13 @@
 {
-  "name": "localisedIn",
+  "name": "stencil",
   "version": "1.0.0",
-  "description": "a local professional services directory",
+  "description": "A horribly simple boilerplate for frontend development",
   "main": "index.js",
   "scripts": {
     "install": "./scripts/install.js"
   },
   "author": "Richard Sentino",
-  "license": "private",
+  "license": "Apache",
   "private": true,
   "dependencies": {
     "express": "^4.10.4"

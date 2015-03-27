@@ -52,12 +52,12 @@ gulp.task('copy-assets', function() {
 
 gulp.task('copy-css', function() {
     return gulp.src(paths.css)
-        .pipe(concat('compiled.boilerplate.css'))
+        .pipe(concat('compiled.stencil.css'))
         .pipe(gulp.dest(paths.build));
 });
 
 function browserifier() {
-    return browserify(paths.build + '/boilerplate.js', {
+    return browserify(paths.build + '/stencil.js', {
         fullPaths: false,
         cache: {},
         packageCache: {},
@@ -67,7 +67,7 @@ function browserifier() {
 gulp.task('browserify', function(){
     return browserifier()
     .bundle()
-    .pipe(source('compiled.boilerplate.js'))
+    .pipe(source('compiled.stencil.js'))
     .pipe(gulp.dest(paths.build));
 });
 
@@ -82,7 +82,7 @@ gulp.task('watchify', function() {
     function rebundle() {
         return browseritor.bundle()
             .on('error', util.log.bind(util, 'Browserify Error'))
-            .pipe(source('compiled.boilerplate.js'))
+            .pipe(source('compiled.stencil.js'))
             .pipe(gulp.dest(paths.build));
     }
 
@@ -110,7 +110,7 @@ gulp.task('watches', function() {
     // post-build watcher(s)
     gulp.watch(paths.build + '/**/*.css')
         .on('change', livereload.changed);
-    gulp.watch(paths.build + '/boilerplate.js')
+    gulp.watch(paths.build + '/stencil.js')
         .on('change', livereload.changed);
     gulp.watch(paths.build + '/index.html')
         .on('change', livereload.changed);
@@ -137,8 +137,8 @@ gulp.task('copy-images', function(){
 gulp.task('copy-builds-to-dist', function(){
     gulp.src([
         paths.build + '/index.html',
-        paths.build + '/compiled.boilerplate.css',
-        paths.build + '/compiled.boilerplate.js'
+        paths.build + '/compiled.stencil.css',
+        paths.build + '/compiled.stencil.js'
     ])
     .pipe(gulp.dest(paths.dist));
 

@@ -7,13 +7,13 @@ require('angular-route/angular-route');
 require('angular-sanitize/angular-sanitize');
 
 require('./templates');
-require('./modules/landing/_module');
+require('./modules/main/main-controller');
 
-var app = angular.module('Boilerplate', [
+var app = angular.module('Stencil', [
     'ngRoute',
     'ngSanitize',
     'Templates',
-    'Landing'
+    'Main'
 ]);
 
 app.config(['$httpProvider', '$routeProvider', '$locationProvider',
@@ -24,8 +24,8 @@ app.config(['$httpProvider', '$routeProvider', '$locationProvider',
         $locationProvider.hashPrefix('!');
         $routeProvider
             .when('/', {
-                templateUrl: 'landing/index.html',
-                controller: 'LandingController'
+                templateUrl: 'main/index.html',
+                controller: 'MainController'
             })
             .otherwise({
                 redirectTo: '/'
