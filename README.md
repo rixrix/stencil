@@ -1,4 +1,4 @@
-gulp-typescript-angularjs-browserify-livereload-boilerplate
+A simple boilerplate for frontend development with GulpJS, AngularJS, Browserify, Livereload, Stylus
 ===========================================================
 
-tba
+more details later
