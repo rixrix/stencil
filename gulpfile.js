@@ -17,7 +17,7 @@ var concat = require('gulp-concat');
 
 
 var boilerPlateName = 'stencil';
-var angularJsTemplateFilename = 'templates.js';
+var compiledJsTemplateFilename = 'templates.js';
 var stencilJsFilename = boilerPlateName + '.js';
 var compiledStencilJsFilename = 'compiled.' + stencilJsFilename;
 var compiledStencilCssFilename = 'compiled.' + boilerPlateName + '.css';
@@ -51,6 +51,23 @@ var paths = {
     ]
 };
 
+function browserifier() {
+    return browserify(paths.build + '/' + stencilJsFilename, {
+        fullPaths: false,
+        cache: {},
+        packageCache: {},
+        debug: true
+    });
+}
+
+function reload(event) {
+    setTimeout(function() {
+        livereload.changed();
+        util.log('[reloaded] ' + path.basename(event.path));
+    }, 2000);
+
+}
+
 gulp.task('compile-typescript', function() {
     return gulp.src(paths.ts)
         .pipe(ts({
@@ -81,14 +98,6 @@ gulp.task('copy-css', function() {
         .pipe(gulp.dest(paths.build));
 });
 
-function browserifier() {
-    return browserify(paths.build + '/' + stencilJsFilename, {
-        fullPaths: false,
-        cache: {},
-        packageCache: {},
-        debug: true
-    });
-}
 gulp.task('browserify', function(){
     return browserifier()
     .bundle()
@@ -118,7 +127,7 @@ gulp.task('compile-templates', function() {
     return gulp.src(paths.templates)
         .pipe(minifyHTML())
         .pipe(templateCache(
-            angularJsTemplateFilename, {
+            compiledJsTemplateFilename, {
             module: 'Templates',
             moduleSystem: 'Browserify',
             standalone: true
@@ -134,13 +143,16 @@ gulp.task('watches', function() {
     gulp.watch(paths.templates, ['compile-templates']);
 
     // post-build watcher(s)
-    gulp.watch(paths.build + '/**/*.css')
-        .on('change', livereload.changed);
-    gulp.watch(path.join(paths.build, stencilJsFilename))
-        .on('change', livereload.changed);
-    gulp.watch(path.join(paths.build, appIndexHtmlFilename))
-        .on('change', livereload.changed);
-
+    gulp.watch([
+        path.join(paths.build, compiledStencilCssFilename),
+        path.join(paths.build, compiledStencilJsFilename),
+        path.join(paths.build, appIndexHtmlFilename)
+    ], {
+        debounceDelay: 1000
+    })
+    .on('change', function(event) {
+        reload(event);
+    });
 });
 
 gulp.task('start-livereload', function(){
