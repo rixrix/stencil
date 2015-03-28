@@ -23,6 +23,8 @@ var compiledStencilCssFilename = 'compiled.' + boilerPlateName + '.css';
 var compiledStencilJsFilename = 'compiled.' + boilerPlateName + '.js';
 var stencilJsFilename = boilerPlateName + '.js';
 
+var minifyBootstrapCssFilename = 'bootstrap.min.css';
+
 var sources = {
     ts: 'app/**/*.ts',
     build: './build/app',
@@ -51,7 +53,14 @@ var sources = {
     ],
     stylus: [
         'app/**/*.styl'
-    ]
+    ],
+    bootstrap: {
+        js: 'node_modules/bootstrap-styl/js/**/*.js' ,
+        fonts: 'node_modules/bootstrap-styl/fonts/**/*.*' ,
+        stylus: [
+            'node_modules/bootstrap-styl/bootstrap/index.styl'
+        ]
+    }
 };
 
 /***********************************************************************************************************************
@@ -114,6 +123,15 @@ gulp.task('watchify', function() {
     }
 
     return rebundle();
+});
+
+gulp.task('bootstrap-css-minify', function() {
+    return gulp.src(sources.bootstrap.stylus)
+    .pipe(stylus({
+        compress: true
+    }))
+    .pipe(concat(minifyBootstrapCssFilename))
+    .pipe(gulp.dest(sources.build));
 });
 
 /***********************************************************************************************************************
@@ -216,6 +234,7 @@ gulp.task('dev', function() {
         'copy-assets',
         'copy-html',
         'copy-images',
+        'bootstrap-css-minify',
         'compile-stylus',
         'compile-typescript',
         'compile-templates',
