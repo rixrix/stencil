@@ -24,7 +24,7 @@ app.config(['$httpProvider', '$routeProvider', '$locationProvider',
         $locationProvider.hashPrefix('!');
         $routeProvider
             .when('/', {
-                templateUrl: 'main/index.html',
+                templateUrl: 'main/main-view.html',
                 controller: 'MainController'
             })
             .otherwise({
