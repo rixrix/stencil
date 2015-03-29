@@ -15,6 +15,7 @@ var ts = require('gulp-typescript');
 var util = require('gulp-util');
 var watchify = require('watchify');
 var stylus = require('gulp-stylus');
+var gulpif = require('gulp-if');
 
 var appIndexHtmlFilename = 'index.html';
 var boilerPlateName = 'stencil';
@@ -23,6 +24,8 @@ var compiledStencilCssFilename = 'compiled.' + boilerPlateName + '.css';
 var compiledStencilJsFilename = 'compiled.' + boilerPlateName + '.js';
 var stencilJsFilename = boilerPlateName + '.js';
 
+var isWatchAndRun = false;
+
 var sources = {
     ts: 'app/**/*.ts',
     build: './build/app',
@@ -30,7 +33,8 @@ var sources = {
     html: 'app/' + appIndexHtmlFilename,
     templates: [
         'app/**/*.html',
-        '!app/assets/**/*.html'
+        '!app/assets/**/*.html',
+        '!app/' + appIndexHtmlFilename
     ],
     css: [
         'app/**/*.css'
@@ -94,7 +98,7 @@ gulp.task('start-server', function() {
 gulp.task('browserify', function(){
     return browserifier()
     .bundle()
-    .pipe(source(compiledStencilJsFilename))
+    .pipe(sourceStream(compiledStencilJsFilename))
     .pipe(gulp.dest(sources.build));
 });
 
@@ -122,7 +126,6 @@ gulp.task('watchify', function() {
 
 gulp.task('copy-html', function() {
     return gulp.src(sources.html)
-    .pipe(concat(appIndexHtmlFilename))
     .pipe(gulp.dest(sources.build));
 });
 
@@ -135,7 +138,7 @@ gulp.task('copy-css', function() {
     return gulp.src(sources.css)
     .pipe(concat(compiledStencilCssFilename))
     .pipe(gulp.dest(sources.build))
-    .pipe(livereload());
+    .pipe(gulpif(isWatchAndRun, livereload()));
 });
 
 gulp.task('copy-images', function(){
@@ -184,7 +187,7 @@ gulp.task('compile-stylus', function() {
     .pipe(stylus())
     .pipe(concat(compiledStencilCssFilename))
     .pipe(gulp.dest(sources.build))
-    .pipe(livereload());
+    .pipe(gulpif(isWatchAndRun, livereload()));
 });
 
 /***********************************************************************************************************************
@@ -206,39 +209,63 @@ gulp.task('watches', function() {
         debounceDelay: 1000
     })
     .on('change', function(event) {
-        reload(event);
+        if (isWatchAndRun) {
+            reload(event);
+        }
     });
 });
 
-gulp.task('dev', function() {
+/***********************************************************************************************************************
+ * Common Tasks
+ **********************************************************************************************************************/
+
+gulp.task('build', function() {
     runSequence(
         'clean',
-        'copy-assets',
-        'copy-html',
-        'copy-images',
-        'compile-stylus',
-        'compile-typescript',
-        'compile-templates',
+        [
+            'copy-assets',
+            'copy-html',
+            'copy-images',
+            'compile-stylus',
+            'compile-typescript',
+            'compile-templates'
+        ],
+        'browserify'
+    );
+});
+
+gulp.task('run', function() {
+    runSequence(
+        'start-server'
+    );
+});
+
+gulp.task('watch', function() {
+    runSequence(
         'watchify',
-        'start-livereload',
-        'start-server',
         'watches'
     );
 });
 
-gulp.task('deploy', function() {
+gulp.task('watchrun', function() {
+    //isWatchAndRun = true;
+
     runSequence(
         'clean',
-        'copy-assets',
-        'copy-html',
-        'copy-css',
-        'copy-images',
-        'compile-typescript',
-        'compile-templates',
+        [
+            'copy-assets',
+            'copy-html',
+            'copy-images',
+            'compile-stylus',
+            'compile-typescript',
+            'compile-templates'
+        ],
         'browserify',
-        'copy-builds-to-dist'
+        'watches',
+        'watchify',
+        'start-livereload',
+        'run'
     );
-
 });
 
-gulp.task('default', ['dev']);
+gulp.task('default', ['watchrun']);
