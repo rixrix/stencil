@@ -25,6 +25,7 @@ var compiledStencilJsFilename = 'compiled.' + boilerPlateName + '.js';
 var stencilJsFilename = boilerPlateName + '.js';
 var stencilCssFilename = boilerPlateName + '.css';
 
+var expressServerPort = 3000;
 var isWatchAndRun = false;
 
 var sources = {
@@ -94,7 +95,9 @@ gulp.task('start-server', function() {
 
     server.use(livereloadInjector());
     server.use(express.static(sources.build));
-    server.listen(3000);
+    server.listen(expressServerPort);
+
+    util.log(util.colors.green('Stencil is listening on port ' + expressServerPort));
 });
 
 gulp.task('browserify', function(){
