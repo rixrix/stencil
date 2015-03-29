@@ -59,6 +59,12 @@ Automatically build and run when a file changes:
 $ gulp watchrun
 ```
 
+For `run` or `watchrun` tasks, navigate to the following URL:
+
+```
+http://localhost:3000
+```
+
 ## Development Workflow
 
 This boilerplate comes with a simple and running example found in `app/main` folder. 
