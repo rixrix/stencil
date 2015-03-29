@@ -61,8 +61,11 @@ $ gulp watchrun
 
 ## Development Workflow
 
-This boilerplate comes with a simple and running example found in `app/main` folder. Check the following files and folders when you want to add another functionality.
+This boilerplate comes with a simple and running example found in `app/main` folder. 
 
+However, check the following files and folders when you want to add another functionality.
+
+* `app/<your-new-folder-here/>`
 * `app/stencil.ts` - Include your new AngularJS controller, its module name and possibly add the route to your new controller and template.
 * `app/styles/index.styl` - If you want to use `Stylus` for your CSS styling then update this file, otherwise just use a regular CSS file and leave this file as is.
 
@@ -74,6 +77,9 @@ This boilerplate comes with a simple and running example found in `app/main` fol
 * Generate package for production deployment
 * Deployment tasks for eg. S3 bucket, Heroku
 * Push as npm package
+* Add end-to-end testing example for [protractor](http://angular.github.io/protractor/#/)
+* Add BDD testing example for [Jasmine](http://jasmine.github.io/2.2/introduction.html)
+* And probably [MochaJS, ChaiJS and SinonJS](http://blog.codeship.com/mocha-js-chai-sinon-frontend-javascript-code-testing-tutorial/)
 
 ## Motivation
 
@@ -81,12 +87,24 @@ This boilerplate comes with a simple and running example found in `app/main` fol
 
 I don't use any of those, besides I'd like to learn how to use these technologies. I want something I could use for playground and at the same time use for production deployment.
 
+## Need Help ?
+
+File an issue https://github.com/rixrix/stencil/issues
+
+## Want to help ?
+
+Issue a pull request https://github.com/rixrix/stencil/pulls
+
 ## Resources
 
 A list of resources where I took some of the ideas and inspiration
 
 * Relational Folder Structure http://w2ui.com/web/blog/10/Folder-Structure-for-Single-Page-Applications
 * Gulp task names https://github.com/mrkev/generator-typescript
+
+## Warning
+
+* Not tested on animals BUT only on MacOSX Yosemite
 
 ## License
 
