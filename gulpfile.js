@@ -23,6 +23,7 @@ var compiledJsTemplateFilename = 'templates.js';
 var compiledStencilCssFilename = 'compiled.' + boilerPlateName + '.css';
 var compiledStencilJsFilename = 'compiled.' + boilerPlateName + '.js';
 var stencilJsFilename = boilerPlateName + '.js';
+var stencilCssFilename = boilerPlateName + '.css';
 
 var isWatchAndRun = false;
 
@@ -54,7 +55,8 @@ var sources = {
         'app/assets/**/*.gif'
     ],
     stylus: [
-        'app/**/*.styl'
+        'app/**/*.styl',
+        'build/app/' + stencilCssFilename
     ]
 };
 
@@ -136,7 +138,7 @@ gulp.task('copy-assets', function() {
 
 gulp.task('copy-css', function() {
     return gulp.src(sources.css)
-    .pipe(concat(compiledStencilCssFilename))
+    .pipe(concat(stencilCssFilename))
     .pipe(gulp.dest(sources.build))
     .pipe(gulpif(isWatchAndRun, livereload()));
 });
@@ -200,6 +202,7 @@ gulp.task('watches', function() {
     gulp.watch(sources.stylus, ['compile-stylus']);
     gulp.watch(sources.ts, ['compile-typescript']);
     gulp.watch(sources.templates, ['compile-templates']);
+    gulp.watch(sources.css, ['copy-css']);
 
     // post-build watcher(s)
     gulp.watch([
@@ -226,10 +229,11 @@ gulp.task('build', function() {
             'copy-assets',
             'copy-html',
             'copy-images',
-            'compile-stylus',
+            'copy-css',
             'compile-typescript',
             'compile-templates'
         ],
+        'compile-stylus',
         'browserify'
     );
 });
@@ -256,10 +260,11 @@ gulp.task('watchrun', function() {
             'copy-assets',
             'copy-html',
             'copy-images',
-            'compile-stylus',
+            'copy-css',
             'compile-typescript',
             'compile-templates'
         ],
+        'compile-stylus',
         'browserify',
         'watches',
         'watchify',
