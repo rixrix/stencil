@@ -248,7 +248,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('watchrun', function() {
-    //isWatchAndRun = true;
+    isWatchAndRun = true;
 
     runSequence(
         'clean',
