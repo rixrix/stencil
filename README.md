@@ -59,7 +59,19 @@ Automatically build and run when a file changes:
 $ gulp watchrun
 ```
 
-For `run` or `watchrun` tasks, navigate to the following URL:
+Build a minified version of your JavaScripts and CSS files
+ 
+```
+$ gulp release
+```
+
+Build and test run the minified version of your JavaScripts and CSS files 
+
+```
+$ gulp releaserun
+```
+
+For `run`, `watchrun` or `releaserun` tasks, navigate to the following URL:
 
 ```
 http://localhost:3000
