@@ -89,15 +89,8 @@ However, check the following files and folders when you want to add another func
 
 ## Todos
 
-* Add TypeScript linter
-* Finish my Stylus linter
-* Minify
-* Generate package for production deployment
-* Deployment tasks for eg. S3 bucket, Heroku
-* Push as npm package
-* Add end-to-end testing example for [protractor](http://angular.github.io/protractor/#/)
-* Add BDD testing example for [Jasmine](http://jasmine.github.io/2.2/introduction.html)
-* And probably [MochaJS, ChaiJS and SinonJS](http://blog.codeship.com/mocha-js-chai-sinon-frontend-javascript-code-testing-tutorial/)
+* Check [Todos](https://github.com/rixrix/stencil/issues)
+* probably [MochaJS, ChaiJS and SinonJS](http://blog.codeship.com/mocha-js-chai-sinon-frontend-javascript-code-testing-tutorial/)
 
 ## Motivation
 
