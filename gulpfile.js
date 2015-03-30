@@ -16,22 +16,27 @@ var util = require('gulp-util');
 var watchify = require('watchify');
 var stylus = require('gulp-stylus');
 var gulpif = require('gulp-if');
+var uglify = require('gulp-uglify');
+var minifyCSS = require('gulp-minify-css');
 
 var appIndexHtmlFilename = 'index.html';
 var boilerPlateName = 'stencil';
 var compiledJsTemplateFilename = 'templates.js';
-var compiledStencilCssFilename = 'compiled.' + boilerPlateName + '.css';
-var compiledStencilJsFilename = 'compiled.' + boilerPlateName + '.js';
+var compiledStencilCssFilename =  boilerPlateName + '.compiled.css';
+var compiledStencilJsFilename = boilerPlateName + '.compiled.js';
 var stencilJsFilename = boilerPlateName + '.js';
 var stencilCssFilename = boilerPlateName + '.css';
 
 var expressServerPort = 3000;
 var isWatchAndRun = false;
+var isPackageRun = false;
+var isPackageRelease = false;
 
 var sources = {
     ts: 'app/**/*.ts',
     build: './build/app',
-    dist: './dist',
+    dist: './dist/app',
+    zip: './dist',
     html: 'app/' + appIndexHtmlFilename,
     templates: [
         'app/**/*.html',
@@ -93,8 +98,13 @@ gulp.task('start-livereload', function(){
 gulp.task('start-server', function() {
     var server = express();
 
-    server.use(livereloadInjector());
-    server.use(express.static(sources.build));
+    if (!isPackageRun) {
+        server.use(livereloadInjector());
+        server.use(express.static(sources.build));
+    } else {
+        server.use(express.static(sources.dist));
+    }
+
     server.listen(expressServerPort);
 
     util.log(util.colors.green('Stencil is listening on port ' + expressServerPort));
@@ -125,42 +135,44 @@ gulp.task('watchify', function() {
     return rebundle();
 });
 
+gulp.task('minify-js', function() {
+    return gulp.src(path.join(sources.build, compiledStencilJsFilename))
+    .pipe(uglify({
+        mangle: true
+    }))
+    .pipe(gulp.dest(path.join(sources.dist, '/')));
+});
+
+gulp.task('minify-css', function() {
+    return gulp.src(path.join(sources.build, compiledStencilCssFilename))
+    .pipe(minifyCSS())
+    .pipe(gulp.dest(path.join(sources.dist, '/')));
+});
+
 /***********************************************************************************************************************
  * Copy-ish Tasks
  **********************************************************************************************************************/
 
-gulp.task('copy-html', function() {
+gulp.task('copy-index-html', function() {
     return gulp.src(sources.html)
-    .pipe(gulp.dest(sources.build));
+    .pipe(gulp.dest(isPackageRelease ? sources.dist : sources.build));
 });
 
 gulp.task('copy-assets', function() {
     return gulp.src(sources.assets)
-    .pipe(gulp.dest(path.join(sources.build, '/assets')));
+    .pipe(gulp.dest(path.join(isPackageRelease ? sources.dist : sources.build, '/assets')));
 });
 
 gulp.task('copy-css', function() {
     return gulp.src(sources.css)
     .pipe(concat(stencilCssFilename))
-    .pipe(gulp.dest(sources.build))
+    .pipe(gulp.dest(isPackageRelease ? sources.dist : sources.build))
     .pipe(gulpif(isWatchAndRun, livereload()));
 });
 
 gulp.task('copy-images', function(){
     return gulp.src(sources.image)
-    .pipe(gulp.dest(sources.build + '/img'));
-});
-
-gulp.task('copy-builds-to-dist', function(){
-    gulp.src([
-        path.join(sources.build, appIndexHtmlFilename),
-        path.join(sources.build, compiledStencilCssFilename),
-        path.join(sources.build, compiledStencilJsFilename)
-    ])
-    .pipe(gulp.dest(sources.dist));
-
-    gulp.src([sources.build + '/img/**/*'])
-    .pipe(gulp.dest(sources.dist + '/img'));
+    .pipe(gulp.dest(path.join(isPackageRelease ? sources.dist : sources.build, '/img')));
 });
 
 /***********************************************************************************************************************
@@ -201,7 +213,7 @@ gulp.task('compile-stylus', function() {
 
 gulp.task('watches', function() {
 
-    gulp.watch(sources.html, ['copy-html']);
+    gulp.watch(sources.html, ['copy-index-html']);
     gulp.watch(sources.stylus, ['compile-stylus']);
     gulp.watch(sources.ts, ['compile-typescript']);
     gulp.watch(sources.templates, ['compile-templates']);
@@ -230,7 +242,7 @@ gulp.task('build', function() {
         'clean',
         [
             'copy-assets',
-            'copy-html',
+            'copy-index-html',
             'copy-images',
             'copy-css',
             'compile-typescript',
@@ -261,7 +273,7 @@ gulp.task('watchrun', function() {
         'clean',
         [
             'copy-assets',
-            'copy-html',
+            'copy-index-html',
             'copy-images',
             'copy-css',
             'compile-typescript',
@@ -272,6 +284,34 @@ gulp.task('watchrun', function() {
         'watches',
         'watchify',
         'start-livereload',
+        'run'
+    );
+});
+
+gulp.task('release', function() {
+    isPackageRelease = true;
+    runSequence(
+        'clean',
+        [
+            'copy-assets',
+            'copy-index-html',
+            'copy-images',
+            'copy-css',
+            'compile-typescript',
+            'compile-templates'
+        ],
+        'compile-stylus',
+        'browserify',
+        'minify-js',
+        'minify-css'
+    );
+});
+
+gulp.task('releaserun', function() {
+    isPackageRun = true;
+    isPackageRelease = true;
+    runSequence(
+        'release',
         'run'
     );
 });
