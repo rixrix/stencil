@@ -18,14 +18,15 @@ var stylus = require('gulp-stylus');
 var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-minify-css');
+var replace = require('gulp-replace');
 
 var appIndexHtmlFilename = 'index.html';
-var boilerPlateName = 'stencil';
-var compiledJsTemplateFilename = 'templates.js';
-var compiledStencilCssFilename =  boilerPlateName + '.compiled.css';
-var compiledStencilJsFilename = boilerPlateName + '.compiled.js';
-var stencilJsFilename = boilerPlateName + '.js';
-var stencilCssFilename = boilerPlateName + '.css';
+var appProjectName = 'stencil';
+var compiledAngularTemplateCacheFilename = 'templates.js';
+var compiledCssFilename =  appProjectName + '.compiled.css';
+var compiledJsFilename = appProjectName + '.compiled.js';
+var appJsFilename = appProjectName + '.js';
+var appCssFilename = appProjectName + '.css';
 
 var expressServerPort = 3000;
 var isWatchAndRun = false;
@@ -62,7 +63,7 @@ var sources = {
     ],
     stylus: [
         'app/**/*.styl',
-        'build/app/' + stencilCssFilename
+        'build/app/' + appCssFilename
     ]
 };
 
@@ -71,7 +72,7 @@ var sources = {
  **********************************************************************************************************************/
 
 function browserifier() {
-    return browserify(sources.build + '/' + stencilJsFilename, {
+    return browserify(sources.build + '/' + appJsFilename, {
         fullsources: false,
         cache: {},
         packageCache: {},
@@ -107,13 +108,13 @@ gulp.task('start-server', function() {
 
     server.listen(expressServerPort);
 
-    util.log(util.colors.green('Stencil is listening on port ' + expressServerPort));
+    util.log(util.colors.green(appProjectName + ' is listening on port ' + expressServerPort));
 });
 
 gulp.task('browserify', function(){
     return browserifier()
     .bundle()
-    .pipe(sourceStream(compiledStencilJsFilename))
+    .pipe(sourceStream(compiledJsFilename))
     .pipe(gulp.dest(sources.build));
 });
 
@@ -128,7 +129,7 @@ gulp.task('watchify', function() {
     function rebundle() {
         return browseritor.bundle()
         .on('error', util.log.bind(util, 'Browserify Error'))
-        .pipe(sourceStream(compiledStencilJsFilename))
+        .pipe(sourceStream(compiledJsFilename))
         .pipe(gulp.dest(sources.build));
     }
 
@@ -136,7 +137,7 @@ gulp.task('watchify', function() {
 });
 
 gulp.task('minify-js', function() {
-    return gulp.src(path.join(sources.build, compiledStencilJsFilename))
+    return gulp.src(path.join(sources.build, compiledJsFilename))
     .pipe(uglify({
         mangle: true
     }))
@@ -144,7 +145,7 @@ gulp.task('minify-js', function() {
 });
 
 gulp.task('minify-css', function() {
-    return gulp.src(path.join(sources.build, compiledStencilCssFilename))
+    return gulp.src(path.join(sources.build, compiledCssFilename))
     .pipe(minifyCSS())
     .pipe(gulp.dest(path.join(sources.dist, '/')));
 });
@@ -155,6 +156,8 @@ gulp.task('minify-css', function() {
 
 gulp.task('copy-index-html', function() {
     return gulp.src(sources.html)
+    .pipe(replace(/{%compiledCssFilename%}/, compiledCssFilename))
+    .pipe(replace(/{%compiledJsFilename%}/, compiledJsFilename))
     .pipe(gulp.dest(isPackageRelease ? sources.dist : sources.build));
 });
 
@@ -165,7 +168,7 @@ gulp.task('copy-assets', function() {
 
 gulp.task('copy-css', function() {
     return gulp.src(sources.css)
-    .pipe(concat(stencilCssFilename))
+    .pipe(concat(appCssFilename))
     .pipe(gulp.dest(isPackageRelease ? sources.dist : sources.build))
     .pipe(gulpif(isWatchAndRun, livereload()));
 });
@@ -183,7 +186,7 @@ gulp.task('compile-templates', function() {
     return gulp.src(sources.templates)
     .pipe(minifyHTML())
     .pipe(templateCache(
-        compiledJsTemplateFilename, {
+        compiledAngularTemplateCacheFilename, {
             module: 'Templates',
             moduleSystem: 'Browserify',
             standalone: true
@@ -202,7 +205,7 @@ gulp.task('compile-typescript', function() {
 gulp.task('compile-stylus', function() {
     return gulp.src(sources.stylus)
     .pipe(stylus())
-    .pipe(concat(compiledStencilCssFilename))
+    .pipe(concat(compiledCssFilename))
     .pipe(gulp.dest(sources.build))
     .pipe(gulpif(isWatchAndRun, livereload()));
 });
@@ -221,7 +224,7 @@ gulp.task('watches', function() {
 
     // post-build watcher(s)
     gulp.watch([
-        path.join(sources.build, compiledStencilJsFilename),
+        path.join(sources.build, compiledJsFilename),
         path.join(sources.build, appIndexHtmlFilename)
     ], {
         debounceDelay: 1000
