@@ -195,6 +195,7 @@ gulp.task('watches', function() {
     gulp.watch(sources.stylus, ['compile-stylus']);
     gulp.watch(sources.ts, ['compile-typescript']);
     gulp.watch(sources.templates, ['compile-templates']);
+    gulp.watch(sources.assets, ['copy-assets']);
 
     // post-build watcher(s)
     gulp.watch([
