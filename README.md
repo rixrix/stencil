@@ -12,10 +12,9 @@ A horribly simple boilerplate for frontend development using some good WWW stuff
 * [Livereload](https://github.com/mklabs/tiny-lr)
 * [ExpressJS](http://expressjs.com/)
 * [Stylus](http://learnboost.github.io/stylus/)
-* Plus other stuff like:
-* - [Watchify](https://github.com/substack/watchify)
-* - [DefinitelyTyped](http://definitelytyped.org/tsd/)
-* - [Bootstrap Stylus](https://www.npmjs.com/package/bootstrap-styl)
+* [Watchify](https://github.com/substack/watchify)
+* [DefinitelyTyped](http://definitelytyped.org/tsd/)
+* [Bootstrap Stylus](https://www.npmjs.com/package/bootstrap-styl)
 
 ## Install
 
