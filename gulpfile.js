@@ -44,26 +44,12 @@ var sources = {
         '!app/assets/**/*.html',
         '!app/' + appIndexHtmlFilename
     ],
-    css: [
-        'app/**/*.css'
-    ],
-    fonts: [
-        'app/assets/**/*.eot',
-        'app/assets/**/*.svg',
-        'app/assets/**/*.ttf',
-        'app/assets/**/*.woff'
-    ],
     assets: [
         'app/assets/**/*.*'
     ],
-    image: [
-        'app/assets/**/*.png',
-        'app/assets/**/*.jpg',
-        'app/assets/**/*.gif'
-    ],
     stylus: [
         'app/**/*.styl',
-        'build/app/' + appCssFilename
+        'app/**/*.css',
     ]
 };
 
@@ -162,20 +148,10 @@ gulp.task('copy-index-html', function() {
 });
 
 gulp.task('copy-assets', function() {
-    return gulp.src(sources.assets)
-    .pipe(gulp.dest(path.join(isPackageRelease ? sources.dist : sources.build, '/assets')));
-});
-
-gulp.task('copy-css', function() {
-    return gulp.src(sources.css)
-    .pipe(concat(appCssFilename))
-    .pipe(gulp.dest(isPackageRelease ? sources.dist : sources.build))
-    .pipe(gulpif(isWatchAndRun, livereload()));
-});
-
-gulp.task('copy-images', function(){
-    return gulp.src(sources.image)
-    .pipe(gulp.dest(path.join(isPackageRelease ? sources.dist : sources.build, '/img')));
+    return gulp.src(sources.assets, {
+        base: 'assets'
+    })
+    .pipe(gulp.dest(path.join(isPackageRelease ? sources.dist : sources.build)));
 });
 
 /***********************************************************************************************************************
@@ -206,7 +182,7 @@ gulp.task('compile-stylus', function() {
     return gulp.src(sources.stylus)
     .pipe(stylus())
     .pipe(concat(compiledCssFilename))
-    .pipe(gulp.dest(sources.build))
+    .pipe(gulp.dest(isPackageRelease ? sources.dist : sources.build))
     .pipe(gulpif(isWatchAndRun, livereload()));
 });
 
@@ -220,7 +196,6 @@ gulp.task('watches', function() {
     gulp.watch(sources.stylus, ['compile-stylus']);
     gulp.watch(sources.ts, ['compile-typescript']);
     gulp.watch(sources.templates, ['compile-templates']);
-    gulp.watch(sources.css, ['copy-css']);
 
     // post-build watcher(s)
     gulp.watch([
@@ -246,8 +221,6 @@ gulp.task('build', function() {
         [
             'copy-assets',
             'copy-index-html',
-            'copy-images',
-            'copy-css',
             'compile-typescript',
             'compile-templates'
         ],
@@ -277,8 +250,6 @@ gulp.task('watchrun', function() {
         [
             'copy-assets',
             'copy-index-html',
-            'copy-images',
-            'copy-css',
             'compile-typescript',
             'compile-templates'
         ],
@@ -298,8 +269,6 @@ gulp.task('release', function() {
         [
             'copy-assets',
             'copy-index-html',
-            'copy-images',
-            'copy-css',
             'compile-typescript',
             'compile-templates'
         ],
