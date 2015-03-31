@@ -26,7 +26,6 @@ var compiledAngularTemplateCacheFilename = 'templates.js';
 var compiledCssFilename =  appProjectName + '.compiled.css';
 var compiledJsFilename = appProjectName + '.compiled.js';
 var appJsFilename = appProjectName + '.js';
-var appCssFilename = appProjectName + '.css';
 
 var expressServerPort = 3000;
 var isWatchAndRun = false;
@@ -49,7 +48,7 @@ var sources = {
     ],
     stylus: [
         'app/**/*.styl',
-        'app/**/*.css',
+        'app/**/*.css'
     ]
 };
 
