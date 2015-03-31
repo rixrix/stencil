@@ -96,7 +96,7 @@ However, check the following files and folders when you want to add another func
 
 ### Why not use [MEAN](mean.io/) or [Yeoman](http://yeoman.io/)
 
-I don't use any of those, besides I'd like to learn how to use these technologies. I want something I could use for playground and at the same time use for production deployment.
+I don't use any of those. I just want something I could use for playground and the same time for production deployment.
 
 ## Need Help ?
 
