@@ -1,3 +1,5 @@
+# Browserify + GulpJS + AngularJS + TypeScript + Stylus
+
 ## Stencil
 
 A horribly simple boilerplate for frontend development using some good WWW stuff today!
