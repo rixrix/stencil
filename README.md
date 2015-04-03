@@ -93,12 +93,6 @@ However, check the following files and folders when you want to add another func
 * Check [Todos](https://github.com/rixrix/stencil/issues)
 * probably [MochaJS, ChaiJS and SinonJS](http://blog.codeship.com/mocha-js-chai-sinon-frontend-javascript-code-testing-tutorial/)
 
-## Motivation
-
-### Why not use [MEAN](mean.io/) or [Yeoman](http://yeoman.io/)
-
-I don't use any of those. I just want something I could use for playground and the same time for production deployment.
-
 ## Need Help ?
 
 File an issue https://github.com/rixrix/stencil/issues
@@ -109,7 +103,6 @@ Issue a pull request https://github.com/rixrix/stencil/pulls
 
 ## Resources
 
-A list of resources where I took some of the ideas and inspiration
 
 * Relational Folder Structure http://w2ui.com/web/blog/10/Folder-Structure-for-Single-Page-Applications
 * Gulp task names https://github.com/mrkev/generator-typescript
