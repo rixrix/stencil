@@ -105,6 +105,7 @@ Issue a pull request https://github.com/rixrix/stencil/pulls
 
 * Relational Folder Structure http://w2ui.com/web/blog/10/Folder-Structure-for-Single-Page-Applications
 * Gulp task names https://github.com/mrkev/generator-typescript
+* gulp-starter (awesome resource) https://github.com/greypants/gulp-starter
 
 ## Warning
 
