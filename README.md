@@ -106,6 +106,10 @@ Issue a pull request https://github.com/rixrix/stencil/pulls
 * Relational Folder Structure http://w2ui.com/web/blog/10/Folder-Structure-for-Single-Page-Applications
 * Gulp task names https://github.com/mrkev/generator-typescript
 * gulp-starter (awesome resource) https://github.com/greypants/gulp-starter
+* https://medium.com/@sogko/gulp-browserify-the-gulp-y-way-bb359b3f9623
+* http://viget.com/extend/gulp-browserify-starter-faq
+* http://stackoverflow.com/a/26866000
+* https://github.com/thlorenz/browserify-shim/wiki/browserify-shim-recipes#browserify-shim-and-external-bundles
 
 ## Warning
 
