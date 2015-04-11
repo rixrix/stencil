@@ -72,6 +72,9 @@ function browserifier() {
         debug: true
     });
 
+    // NOTE
+    // Exclude shim-ified libraries from the main app.
+    // So we mark and tell browserify that these are external resources
     for(shim in shimList) {
         b.external(shim);
     }
