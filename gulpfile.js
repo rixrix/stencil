@@ -19,6 +19,9 @@ var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-minify-css');
 var replace = require('gulp-replace');
+var transform = require('vinyl-transform');
+var rename = require('gulp-rename');
+var fs = require('fs');
 
 var appIndexHtmlFilename = 'index.html';
 var appProjectName = 'stencil';
@@ -26,11 +29,14 @@ var compiledAngularTemplateCacheFilename = 'templates.js';
 var compiledCssFilename =  appProjectName + '.compiled.css';
 var compiledJsFilename = appProjectName + '.compiled.js';
 var appJsFilename = appProjectName + '.js';
+var compiledShimVendorsJsFilename = 'vendors.js';
+var fakeShimFilename = 'noop.js';
 
 var expressServerPort = 3000;
 var isWatchAndRun = false;
 var isPackageRun = false;
 var isPackageRelease = false;
+var shimList = getConfigByKey('browserify-shim');
 
 var sources = {
     ts: 'app/**/*.ts',
@@ -38,6 +44,7 @@ var sources = {
     dist: './dist/app',
     zip: './dist',
     html: 'app/' + appIndexHtmlFilename,
+    app: 'app/',
     templates: [
         'app/**/*.html',
         '!app/assets/**/*.html',
@@ -57,12 +64,19 @@ var sources = {
  **********************************************************************************************************************/
 
 function browserifier() {
-    return browserify(sources.build + '/' + appJsFilename, {
+    var shim;
+    var b = browserify(sources.build + '/' + appJsFilename, {
         fullsources: false,
         cache: {},
         packageCache: {},
         debug: true
     });
+
+    for(shim in shimList) {
+        b.external(shim);
+    }
+
+    return b;
 }
 
 function reload(event) {
@@ -70,6 +84,11 @@ function reload(event) {
         livereload.changed();
         util.log('[reloaded] ' + path.basename(event.path));
     }, 2000);
+}
+
+function getConfigByKey(key) {
+    var config = require('./package.json');
+    return config[key];
 }
 
 gulp.task('clean', function() {
@@ -112,7 +131,8 @@ gulp.task('watchify', function() {
     browseritor.on('update', rebundle);
 
     function rebundle() {
-        return browseritor.bundle()
+        return browseritor
+        .bundle()
         .on('error', util.log.bind(util, 'Browserify Error'))
         .pipe(sourceStream(compiledJsFilename))
         .pipe(gulp.dest(sources.build));
@@ -135,6 +155,38 @@ gulp.task('minify-css', function() {
     .pipe(gulp.dest(path.join(sources.dist, '/')));
 });
 
+
+
+gulp.task('browserify-vendors', function() {
+    var shim;
+    var noopJS = path.join(sources.app, fakeShimFilename);
+
+    // HACK ALERT
+    // create a fake entry point so that browserify will give us
+    // a stream where we can require the shim-ified libraries
+    fs.writeFile(noopJS, '');
+
+    var browserified = transform(function(filename){
+        var b = browserify(filename);
+
+        for(shim in shimList) {
+            b.require(shim);
+        }
+
+        return b.bundle();
+    });
+
+    return gulp.src(path.join(sources.app, fakeShimFilename))
+    .pipe(browserified)
+    .pipe(rename(compiledShimVendorsJsFilename))
+    .pipe(gulp.dest(path.join(sources.build, '/')))
+    .on('end', function() {
+        // we named the shim file @ checck `compiledShimVendorsJsFilename`, thus it's safe to
+        // delete the fake file after writing the contents to its destination folder
+        fs.unlink(noopJS);
+    });
+});
+
 /***********************************************************************************************************************
  * Copy-ish Tasks
  **********************************************************************************************************************/
@@ -143,6 +195,7 @@ gulp.task('copy-index-html', function() {
     return gulp.src(sources.html)
     .pipe(replace(/{%compiledCssFilename%}/, compiledCssFilename))
     .pipe(replace(/{%compiledJsFilename%}/, compiledJsFilename))
+    .pipe(replace(/{%compiledShimVendorsJsFilename%}/, compiledShimVendorsJsFilename))
     .pipe(gulp.dest(isPackageRelease ? sources.dist : sources.build));
 });
 
@@ -254,6 +307,7 @@ gulp.task('watchrun', function() {
             'compile-templates'
         ],
         'compile-stylus',
+        'browserify-vendors',
         'browserify',
         'watches',
         'watchify',

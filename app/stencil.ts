@@ -2,33 +2,34 @@
 
 'use strict'
 
-require('angular/angular');
-require('angular-route/angular-route');
-require('angular-sanitize/angular-sanitize');
+/**
+ * Load app-wide controllers, directives & services
+ */
 
-require('./templates');
 require('./main/main-controller');
 
-var app = angular.module('Stencil', [
-    'ngRoute',
-    'ngSanitize',
-    'Templates',
-    'Main'
-]);
+/**
+ * Import main app module
+ */
+import _appModule = require('./app-module');
 
-app.config(['$httpProvider', '$routeProvider', '$locationProvider',
+_appModule.config([
+    '$httpProvider',
+    '$routeProvider',
+    '$locationProvider',
     function($httpProvider: ng.IHttpProvider,
              $routeProvider: ng.route.IRouteProvider,
-             $locationProvider: ng.ILocationProvider)
-    {
+             $locationProvider: ng.ILocationProvider) {
+
         $locationProvider.hashPrefix('!');
+
         $routeProvider
-            .when('/', {
-                templateUrl: 'main/main-view.html',
-                controller: 'MainController'
-            })
-            .otherwise({
-                redirectTo: '/'
-            });
+        .when('/', {
+            templateUrl: 'main/main-view.html',
+            controller: 'MainController'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
     }
 ]);

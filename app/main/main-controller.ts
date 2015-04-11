@@ -7,5 +7,5 @@ export class MainController {
     }
 }
 
-angular.module('Main', [])
-.controller('MainController', MainController);
+import _appModule = require('../app-module');
+_appModule.controller('MainController', MainController);
