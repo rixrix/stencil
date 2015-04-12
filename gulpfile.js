@@ -22,6 +22,8 @@ var replace = require('gulp-replace');
 var transform = require('vinyl-transform');
 var rename = require('gulp-rename');
 var fs = require('fs');
+var zip = require('gulp-vinyl-zip').zip;
+var argv = require('yargs').argv;
 
 var appIndexHtmlFilename = 'index.html';
 var appProjectName = 'stencil';
@@ -31,12 +33,14 @@ var compiledJsFilename = appProjectName + '.compiled.js';
 var appJsFilename = appProjectName + '.js';
 var compiledShimVendorsJsFilename = 'vendors.js';
 var fakeShimFilename = 'noop.js';
+var zipArchiveFilename = 'archive.zip';
 
 var expressServerPort = 3000;
 var isWatchAndRun = false;
 var isPackageRun = false;
 var isPackageRelease = false;
 var shimList = getConfigByKey('browserify-shim');
+var isZip = !!argv.zip;
 
 var sources = {
     ts: 'app/**/*.ts',
@@ -95,7 +99,13 @@ function getConfigByKey(key) {
 }
 
 gulp.task('clean', function() {
-    return gulp.src([sources.build, sources.dist], {read: false})
+    return gulp.src([
+        sources.build,
+        sources.dist,
+        sources.zip
+    ], {
+        read: false
+    })
     .pipe(clean());
 });
 
@@ -157,11 +167,12 @@ gulp.task('minify-js', function() {
 
 gulp.task('minify-css', function() {
     return gulp.src(path.join(sources.build, compiledCssFilename))
-    .pipe(minifyCSS())
+    .pipe(minifyCSS({
+        keepSpecialComments: 0,
+        advanced: true
+    }))
     .pipe(gulp.dest(path.join(sources.dist, '/')));
 });
-
-
 
 gulp.task('browserify-vendors', function() {
     var shim;
@@ -191,6 +202,14 @@ gulp.task('browserify-vendors', function() {
         // delete the fake file after writing the contents to its destination folder
         fs.unlink(noopJS);
     });
+});
+
+gulp.task('zip', function() {
+    var src = isPackageRelease ? sources.dist : sources.build;
+
+    return gulp.src(path.join(src, '/**/*'))
+    .pipe(zip(zipArchiveFilename))
+    .pipe(gulp.dest(sources.zip))
 });
 
 /***********************************************************************************************************************
@@ -284,7 +303,12 @@ gulp.task('build', function() {
             'compile-templates'
         ],
         'compile-stylus',
-        'browserify'
+        'browserify',
+        function() {
+            if (isZip) {
+                runSequence('zip');
+            }
+        }
     );
 });
 
@@ -336,8 +360,14 @@ gulp.task('release', function() {
         'browserify-vendors',
         'browserify',
         'minify-js',
-        'minify-css'
+        'minify-css',
+        function() {
+            if (isZip) {
+                runSequence('zip');
+            }
+        }
     );
+
 });
 
 gulp.task('releaserun', function() {
