@@ -145,7 +145,10 @@ gulp.task('watchify', function() {
 });
 
 gulp.task('minify-js', function() {
-    return gulp.src(path.join(sources.build, compiledJsFilename))
+    return gulp.src([
+        path.join(sources.build, compiledJsFilename),
+        path.join(sources.build, compiledShimVendorsJsFilename)
+    ])
     .pipe(uglify({
         mangle: true
     }))
@@ -330,6 +333,7 @@ gulp.task('release', function() {
             'compile-templates'
         ],
         'compile-stylus',
+        'browserify-vendors',
         'browserify',
         'minify-js',
         'minify-css'
