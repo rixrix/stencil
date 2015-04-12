@@ -1,6 +1,6 @@
 {
   "name": "stencil",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "A horribly simple boilerplate for frontend development",
   "main": "index.js",
   "scripts": {
