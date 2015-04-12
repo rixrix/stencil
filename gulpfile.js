@@ -303,6 +303,7 @@ gulp.task('build', function() {
             'compile-templates'
         ],
         'compile-stylus',
+        'browserify-vendors',
         'browserify',
         function() {
             if (isZip) {
