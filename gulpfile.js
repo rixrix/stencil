@@ -73,7 +73,10 @@ function browserifier() {
         fullsources: false,
         cache: {},
         packageCache: {},
-        debug: isPackageRelease ? false : true
+        debug: isPackageRelease ? false : true,
+        paths: [
+            sources.build
+        ]
     });
 
     // NOTE

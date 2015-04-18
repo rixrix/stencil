@@ -7,5 +7,5 @@ export class MainController {
     }
 }
 
-import _appModule = require('../app-module');
+import _appModule = require('app-module');
 _appModule.controller('MainController', MainController);

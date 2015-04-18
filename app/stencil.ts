@@ -11,7 +11,7 @@ require('./main/main-controller');
 /**
  * Import main app module
  */
-import _appModule = require('./app-module');
+import _appModule = require('app-module');
 
 _appModule.config([
     '$httpProvider',
