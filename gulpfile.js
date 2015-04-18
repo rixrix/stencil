@@ -73,7 +73,7 @@ function browserifier() {
         fullsources: false,
         cache: {},
         packageCache: {},
-        debug: true
+        debug: isPackageRelease ? false : true
     });
 
     // NOTE
