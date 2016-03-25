@@ -1,81 +1,62 @@
 {
   "name": "stencil",
-  "version": "0.1.1",
-  "description": "A horribly simple boilerplate for frontend development",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "A horribly simple starter template for all your Angular2 frontend development",
   "scripts": {
     "install": "./scripts/install.js"
   },
-  "author": "Richard Sentino",
-  "license": "Apache",
-  "private": true,
+  "author": "Richard Sentino <richard@mindginative.com>",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.10.4"
-  },
-  "browser": {
-    "angular": "./node_modules/angular/angular.min.js",
-    "angular-route": "./node_modules/angular-route/angular-route.min.js",
-    "angular-sanitize": "./node_modules/angular-sanitize/angular-sanitize.min.js",
-    "jQuery": "./node_modules/jquery/dist/jquery.min.js"
-  },
-  "browserify-shim": {
-    "jQuery": "jQuery",
-    "angular": {
-      "depends": [
-        "jQuery:jQuery"
-      ],
-      "exports": "angular"
-    },
-    "angular-route": {
-      "depends": [
-        "angular:angular"
-      ],
-      "exports": "angular-route"
-    },
-    "angular-sanitize": {
-      "depends": [
-        "angular:angular"
-      ],
-      "exports": "angular-sanitize"
-    }
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
+    "angular2": "2.0.0-beta.9",
+    "body-parser": "^1.15.0",
+    "core-js": "^2.2.1",
+    "ejs": "^2.4.1",
+    "es6-shim": "^0.33.3",
+    "express": "^4.13.4",
+    "express-ejs-layouts": "^2.0.0",
+    "immutable": "^3.7.6",
+    "lodash": "^4.6.1",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "zone.js": "^0.5.15"
   },
   "devDependencies": {
-    "angular": "^1.3.5",
-    "angular-route": "^1.3.5",
-    "angular-sanitize": "^1.3.8",
-    "bootstrap-styl": "^4.0.3",
-    "browserify": "^7.0.0",
-    "browserify-shim": "^3.8.3",
-    "connect-livereload": "^0.5.2",
-    "gulp": "^3.8.10",
-    "gulp-angular-templatecache": "^1.4.2",
-    "gulp-clean": "^0.3.1",
-    "gulp-concat": "^2.4.2",
-    "gulp-if": "^1.2.5",
-    "gulp-livereload": "^2.1.1",
-    "gulp-minify-css": "^1.0.0",
-    "gulp-minify-html": "^0.1.7",
+    "connect-livereload": "^0.5.4",
+    "es6-promise": "^3.1.2",
+    "file-loader": "^0.8.5",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-if": "^2.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-minify-html": "^1.0.6",
     "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.5.3",
-    "gulp-stylus": "^2.0.1",
-    "gulp-typescript": "^2.3.0",
-    "gulp-uglify": "^1.1.0",
-    "gulp-util": "^3.0.1",
-    "gulp-vinyl-zip": "^1.0.7",
-    "gulp-watch": "^3.0.0",
-    "jquery": "^1.11.2",
-    "run-sequence": "^1.0.2",
-    "tiny-lr": "^0.1.4",
-    "tsd": "^0.5.7",
-    "typescript": "^1.3.0",
-    "vinyl-source-stream": "^1.0.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-stylus": "^2.3.1",
+    "gulp-typescript": "^2.12.1",
+    "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.7",
+    "gulp-vinyl-zip": "^1.2.2",
+    "gulp-watch": "^4.3.5",
+    "node-sass": "^3.4.2",
+    "nodemailer": "^2.3.0",
+    "raw-loader": "^0.5.1",
+    "run-sequence": "^1.1.5",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "stylus-loader": "^1.5.1",
+    "tiny-lr": "^0.2.1",
+    "ts-loader": "^0.8.1",
+    "typescript": "^1.8.9",
+    "typings": "^0.7.9",
+    "uglify-loader": "^1.3.0",
+    "vinyl-source-stream": "^1.1.0",
     "vinyl-transform": "^1.0.0",
-    "watchify": "^2.1.1",
-    "yargs": "^3.7.1"
+    "watchify": "^3.7.0",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1",
+    "yargs": "^4.3.2"
   }
 }

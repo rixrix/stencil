@@ -1,0 +1,13 @@
+{
+  "name": "mandrill",
+  "version": false,
+  "dependencies": {
+    "form-data": "registry:npm/form-data#1.0.0+20160211003958",
+    "lodash": "registry:npm/lodash#4.0.0+20160305082308"
+  },
+  "ambientDependencies": {
+    "express": "registry:dt/express#4.0.0+20160317120654",
+    "node": "registry:dt/node#4.0.0+20160319033040",
+    "webpack": "registry:dt/webpack#1.12.9+20160316155526"
+  }
+}

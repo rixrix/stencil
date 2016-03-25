@@ -1,26 +1,17 @@
-# Browserify + GulpJS + AngularJS + TypeScript + Stylus
+# Stencil
 
-## Stencil
-
-A horribly simple boilerplate for frontend development using some good WWW stuff today!
+A horribly simple starter template for all your Angular2 frontend development
 
 ## Technologies
 
-* [GulpJS](http://gulpjs.com/)
-* [TypeScript](http://www.typescriptlang.org/)
-* [AngularJS](https://angular.io/)
-* [Browserify](http://browserify.org/)
-* [NodeJS](https://nodejs.org/)
-* [Livereload](https://github.com/mklabs/tiny-lr)
-* [ExpressJS](http://expressjs.com/)
-* [Stylus](http://learnboost.github.io/stylus/)
-* [Watchify](https://github.com/substack/watchify)
-* [DefinitelyTyped](http://definitelytyped.org/tsd/)
-* [Bootstrap Stylus](https://www.npmjs.com/package/bootstrap-styl)
+[GulpJS](http://gulpjs.com/), [TypeScript](http://www.typescriptlang.org/), [Angular2](https://angular.io/), 
+[NodeJS](https://nodejs.org/), [ExpressJS](http://expressjs.com/), [Stylus](http://learnboost.github.io/stylus/),
+[DefinitelyTyped](http://definitelytyped.org/tsd/), [Material Design Lite](https://www.getmdl.io/), [SCSS](http://sass-lang.com/),
+[Webpack](https://webpack.github.io/)
 
 ## Install npm dependencies
 
-Make sure you have NodeJS and Git, then
+Make sure you already have NodeJS and Git installed, then
 
 ```
 $ git clone https://github.com/rixrix/stencil.git
@@ -28,9 +19,9 @@ $ cd </path/to/stencil/cloned/folder>
 $ npm install
 ```
 
-## The Gulp command
+## Gulp commands
 
-By default if you don't specify any parameter to Gulp it will invoke `watchrun` task
+By default if you don't specify any parameter it will invoke `watchrun`
 
 ```
 $ gulp
@@ -80,40 +71,15 @@ http://localhost:3000
 
 ## Development Workflow
 
-This boilerplate comes with a simple and running example found in `app/main` folder. 
-
-However, check the following files and folders when you want to add another functionality.
-
-* `app/<your-new-folder-here/>`
-* `app/stencil.ts` - Include your new AngularJS controller, its module name and possibly add the route to your new controller and template.
-* `app/styles/index.styl` - If you want to use `Stylus` for your CSS styling then update this file, otherwise just use a regular CSS file and leave this file as is.
-
-## Todos
-
-* Check [Todos](https://github.com/rixrix/stencil/issues)
-* probably [MochaJS, ChaiJS and SinonJS](http://blog.codeship.com/mocha-js-chai-sinon-frontend-javascript-code-testing-tutorial/)
+TBA
 
 ## Need Help ?
 
-File an issue https://github.com/rixrix/stencil/issues
+https://github.com/rixrix/stencil/issues
 
 ## Want to help ?
 
-Issue a pull request https://github.com/rixrix/stencil/pulls
-
-## Resources
-
-* Relational Folder Structure http://w2ui.com/web/blog/10/Folder-Structure-for-Single-Page-Applications
-* Gulp task names https://github.com/mrkev/generator-typescript
-* gulp-starter (awesome resource) https://github.com/greypants/gulp-starter
-* https://medium.com/@sogko/gulp-browserify-the-gulp-y-way-bb359b3f9623
-* http://viget.com/extend/gulp-browserify-starter-faq
-* http://stackoverflow.com/a/26866000
-* https://github.com/thlorenz/browserify-shim/wiki/browserify-shim-recipes#browserify-shim-and-external-bundles
-
-## Warning
-
-* Not tested on animals BUT only on MacOSX Yosemite
+Pull request https://github.com/rixrix/stencil/pulls
 
 ## License
 
