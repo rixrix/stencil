@@ -40,6 +40,8 @@
     "gulp-util": "^3.0.7",
     "gulp-vinyl-zip": "^1.2.2",
     "gulp-watch": "^4.3.5",
+    "karma": "^0.13.22",
+    "nib": "^1.1.0",
     "node-sass": "^3.4.2",
     "nodemailer": "^2.3.0",
     "raw-loader": "^0.5.1",
