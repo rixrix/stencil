@@ -11,7 +11,7 @@ var options = {
         loaders: [
             {
                 test: /\.ts$/,
-                loader: 'ts-loader'
+                loader: 'ts'
             },
             {
                 test: /\.html$/,
@@ -19,11 +19,11 @@ var options = {
             },
             {
                 test: /\.css$/,
-                loader: "style-loader!css-loader"
+                loaders: ['style','css']
             },
             {
                 test: /\.scss$/,
-                loader: "style!css!sass"
+                loaders: ['style', 'css', 'sass']
             }
         ]
     },
