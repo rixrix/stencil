@@ -11,7 +11,7 @@ var path = require('path');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
-app.set('port', 9001);
+app.set('port', 3001);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/app', express.static(path.join(__dirname, 'app')));
@@ -27,7 +27,7 @@ var server = app.listen(app.get('port'), function(){
 /******************************************************************************
  * routes
  ******************************************************************************/
- 
+
  // main
 app.get('/', function(req, res) {
    res.render('pages/main', { layout: 'layout'});

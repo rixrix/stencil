@@ -13,8 +13,8 @@ var exec = require('child_process').exec;
 var karma = require('karma');
 
 var appIndexHtmlFilename = 'index.html';
-var appProjectName = 'stencil';
-var compiledJsFilename = appProjectName + '.compiled.js';
+var appProjectName = 'main';
+var compiledJsFilename = appProjectName + '.js';
 
 var webServerPort = 3000;
 var proxyServerPort = 3001;
@@ -32,6 +32,12 @@ var sources = {
     ]
 };
 
+var polyfillLibs = [
+    './node_modules/core-js/client/shim.min',
+    './node_modules/zone.js/dist/zone.min',
+    './node_modules/reflect-metadata/Reflect.js'
+];
+
 /***********************************************************************************************************************
  * Private Utilities
  **********************************************************************************************************************/
@@ -47,34 +53,27 @@ gulp.task('clean', function() {
 });
 
 gulp.task('start-server', function() {
-    var server = express();
-    var port = isExpressOnProxyServer ? proxyServerPort : webServerPort;
-
-    server.get('/', function(request, response) {
-        response.sendFile(path.join(__dirname, '/', sources.html));
-    })
-    .use(express.static(path.resolve(__dirname)))
-    .listen(port);
-
-    if (!isExpressOnProxyServer) {
-        util.log('express @ http://localhost:' + port);
-    }
+    require('./server/server');
 });
 
 gulp.task('webpack-dev-server', function() {
+    var currentWorkingDirectory = path.resolve(__dirname, 'app');
     var options = require('./webpack.config');
 
     options.entry = [];
-    options.entry.push('reflect-metadata/Reflect');
-    options.entry.push('core-js/client/shim.min');
-    options.entry.push('zone.js/lib/zone');
+    options.entry.push('./node_modules/core-js/client/shim.min');
+    options.entry.push('./node_modules/zone.js/dist/zone.min');
+    options.entry.push('./node_modules/reflect-metadata/Reflect.js');
     options.entry.push('app/' + appProjectName + '.ts');
     options.entry.push('webpack-dev-server/client?http://localhost:' + webServerPort, 'webpack/hot/dev-server');
     options.plugins.push(new webpack.HotModuleReplacementPlugin());
+    options.resolve.modulesDirectories.push('web_modules', 'node_modules');
 
     var devServerOptions = {
         hot: true,
-        watchDelay: 300,
+        watchOptions: {
+          aggregateTimeout: 600
+        },
         stats: {
             cached: false,
             cachedAssets: false,
@@ -83,12 +82,20 @@ gulp.task('webpack-dev-server', function() {
         },
         proxy: {
             '*': "http://localhost:" + proxyServerPort
+        },
+        debug: true,
+        devtool: true,
+        cache: true,
+        output: {
+            path: currentWorkingDirectory,
+            filename: 'app/[name].js',
+            publicPath: 'http://localhost:' + webServerPort + '/'
         }
     };
 
     var webpackServer = new WebpackDevServer(webpack(options), devServerOptions);
 
-    webpackServer.listen(webServerPort, function () {
+    webpackServer.listen(webServerPort, function() {
         util.log("webpack @ http://localhost:" + webServerPort)
     });
 });
@@ -127,9 +134,9 @@ gulp.task('webpackify', function(callback) {
 
     webpackOptions.entry = {
         stencil: [
-            'reflect-metadata/Reflect',
-            'core-js/client/shim.min',
-            'zone.js/lib/zone',
+            './node_modules/core-js/client/shim.min',
+            './node_modules/zone.js/dist/zone.min',
+            './node_modules/reflect-metadata/Reflect.js',
             'app/' + appProjectName + '.ts'
         ]
     };

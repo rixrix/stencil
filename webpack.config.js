@@ -11,7 +11,7 @@ var options = {
         loaders: [
             {
                 test: /\.ts$/,
-                loader: 'typescript-simple'
+                loader: 'ts-loader'
             },
             {
                 test: /\.html$/,
@@ -43,15 +43,7 @@ var options = {
         }
     },
     plugins: [
-        new webpack.NormalModuleReplacementPlugin(/^.*\.(html|css)$/, function (request) {
-            var relative = path.relative(__dirname, request.context);
-            var splitPath = relative.split(path.sep);
 
-            if (splitPath[0] !== 'app') {
-                relative = splitPath.slice(1).join(path.sep);
-                request.context = path.join(__dirname, relative);
-            }
-        })
     ],
     resolve: {
         extensions: ['', '.webpack.js', '.web.js', '.ts', '.js'],
@@ -61,7 +53,7 @@ var options = {
     },
     output: {
         path: '/',
-        filename: 'stencil.compiled.js'
+        filename: 'main.js'
     }
 };
 
