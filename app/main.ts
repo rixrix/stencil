@@ -7,7 +7,6 @@ import {
 } from 'angular2/platform/browser';
 import {
     Component,
-    View,
     provide
 } from 'angular2/core';
 import {
@@ -19,10 +18,7 @@ import {
 } from 'angular2/router';
 
 @Component({
-    selector: 'stencil-app'
-})
-
-@View({
+    selector: 'stencil-app',
     directives: [
         ROUTER_DIRECTIVES
         ],

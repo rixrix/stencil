@@ -3,23 +3,28 @@
   "version": "1.0.0",
   "description": "A horribly simple starter template for all your Angular2 frontend development",
   "scripts": {
-    "install": "./scripts/install.js"
+    "postinstall": "./scripts/install.js"
   },
   "author": "Richard Sentino <richard@mindginative.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rixrix/stencil.git"
+  },
+  "homepage": "https://github.com/rixrix/stencil",
   "dependencies": {
-    "angular2": "2.0.0-beta.9",
+    "angular2": "2.0.0-beta.12",
     "body-parser": "^1.15.0",
     "core-js": "^2.2.1",
     "ejs": "^2.4.1",
-    "es6-shim": "^0.33.3",
+    "es6-shim": "0.35.0",
     "express": "^4.13.4",
     "express-ejs-layouts": "^2.0.0",
     "immutable": "^3.7.6",
     "lodash": "^4.6.1",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
-    "zone.js": "^0.5.15"
+    "zone.js": "0.6.6"
   },
   "devDependencies": {
     "connect-livereload": "^0.5.4",
