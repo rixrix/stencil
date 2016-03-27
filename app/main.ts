@@ -6,16 +6,13 @@ import {
 import {
     Component,
     View,
-    provide,
-    enableProdMode
+    provide
 } from 'angular2/core';
 import {
     ROUTER_PROVIDERS,
     LocationStrategy,
     PathLocationStrategy,
     ROUTER_DIRECTIVES,
-    RouteConfig,
-    Router,
     APP_BASE_HREF
 } from 'angular2/router';
 
@@ -32,17 +29,16 @@ import {
     `
 })
 
-
 export class StencilApp {
-    constructor(private router: Router) {
-        console.log('xxx!');
+    constructor() {
+        // no-op
     }
 }
 
 bootstrap(
     StencilApp, [
         ROUTER_PROVIDERS,
-        provide(LocationStrategy, {useClass: PathLocationStrategy}),
-        provide(APP_BASE_HREF, {useValue: '/main'})
+        provide(LocationStrategy, { useClass: PathLocationStrategy }),
+        provide(APP_BASE_HREF, { useValue: '/main' })
     ]
-)
+);

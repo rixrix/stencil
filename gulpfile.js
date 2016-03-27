@@ -11,6 +11,7 @@ var WebpackDevServer = require('webpack-dev-server');
 var _ = require('lodash');
 var exec = require('child_process').exec;
 var karma = require('karma');
+var tslint = require('gulp-tslint');
 
 var appIndexHtmlFilename = 'index.html';
 var appProjectName = 'main';
@@ -108,6 +109,14 @@ gulp.task('karma-server', function(doneCB) {
     server.start();
 });
 
+gulp.task('tslint', function() {
+    return gulp.src('app/**/*.ts')
+    .pipe(tslint({
+        configuration: require('./tslint.json')
+    }))
+    .pipe(tslint.report('full'))
+});
+
 /***********************************************************************************************************************
  * Copy-ish Tasks
  **********************************************************************************************************************/
@@ -178,7 +187,10 @@ gulp.task('watchrun', function() {
     isExpressOnProxyServer = true;
     runSequence(
         'run',
-        'webpack-dev-server'
+        'webpack-dev-server',
+        function() {
+            gulp.watch(sources.ts, ['tslint']);
+        }
     );
 });
 
