@@ -1,5 +1,7 @@
 /// <reference path="libs.d.ts" />
 
+require('./main.scss');
+
 import {
     bootstrap
 } from 'angular2/platform/browser';
@@ -24,9 +26,7 @@ import {
     directives: [
         ROUTER_DIRECTIVES
         ],
-    template: `
-        <div>angular2</div>
-    `
+    template: require('./main.html')
 })
 
 export class StencilApp {
