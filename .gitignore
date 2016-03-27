@@ -32,3 +32,4 @@ build
 typings
 .idea
 dist
+.vscode
