@@ -14,7 +14,7 @@ app.use(expressLayouts);
 app.set('port', 3001);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/app', express.static(path.join(__dirname, 'app')));
+app.use('/client', express.static(path.join(__dirname, 'client')));
 app.set("layout extractScripts", true);
 
 /******************************************************************************

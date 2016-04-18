@@ -24,12 +24,12 @@ var isPackageRelease = false;
 var isExpressOnProxyServer = false;
 
 var sources = {
-    ts: 'app/**/*.ts',
-    build: './build/app',
-    dist: './dist/app',
-    html: 'app/' + appIndexHtmlFilename,
+    ts: 'client/**/*.ts',
+    build: './build/client',
+    dist: './dist/client',
+    html: 'client/' + appIndexHtmlFilename,
     assets: [
-        'app/assets/**/*.*'
+        'client/assets/**/*.*'
     ]
 };
 
@@ -58,14 +58,14 @@ gulp.task('start-server', function() {
 });
 
 gulp.task('webpack-dev-server', function() {
-    var currentWorkingDirectory = path.resolve(__dirname, 'app');
+    var currentWorkingDirectory = path.resolve(__dirname, 'client');
     var options = require('./webpack.config');
 
     options.entry = [];
     options.entry.push('./node_modules/core-js/client/shim.min');
     options.entry.push('./node_modules/zone.js/dist/zone.min');
     options.entry.push('./node_modules/reflect-metadata/Reflect.js');
-    options.entry.push('app/' + appProjectName + '.ts');
+    options.entry.push('client/' + appProjectName + '.ts');
     options.entry.push('webpack-dev-server/client?http://localhost:' + webServerPort, 'webpack/hot/dev-server');
     options.plugins.push(new webpack.HotModuleReplacementPlugin());
     options.resolve.modulesDirectories.push('web_modules', 'node_modules');
@@ -89,7 +89,7 @@ gulp.task('webpack-dev-server', function() {
         cache: true,
         output: {
             path: currentWorkingDirectory,
-            filename: 'app/[name].js',
+            filename: 'client/[name].js',
             publicPath: 'http://localhost:' + webServerPort + '/'
         }
     };
@@ -110,7 +110,7 @@ gulp.task('karma-server', function(doneCB) {
 });
 
 gulp.task('tslint', function() {
-    return gulp.src('app/**/*.ts')
+    return gulp.src('client/**/*.ts')
     .pipe(tslint({
         configuration: require('./tslint.json')
     }))
@@ -146,7 +146,7 @@ gulp.task('webpackify', function(callback) {
             './node_modules/core-js/client/shim.min',
             './node_modules/zone.js/dist/zone.min',
             './node_modules/reflect-metadata/Reflect.js',
-            'app/' + appProjectName + '.ts'
+            'client/' + appProjectName + '.ts'
         ]
     };
 
