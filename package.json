@@ -1,6 +1,6 @@
 {
   "name": "stencil",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A horribly simple starter template for all your Angular2 frontend development",
   "scripts": {
     "postinstall": "./scripts/install.js",
