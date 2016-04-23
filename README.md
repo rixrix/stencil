@@ -4,12 +4,12 @@ A horribly simple starter template for all your Angular2 frontend development
 
 ## Technologies
 
-[GulpJS](http://gulpjs.com/), [TypeScript](http://www.typescriptlang.org/), [Angular2](https://angular.io/), 
+[GulpJS](http://gulpjs.com/), [TypeScript](http://www.typescriptlang.org/), [Angular2](https://angular.io/),
 [NodeJS](https://nodejs.org/), [ExpressJS](http://expressjs.com/), [Stylus](http://learnboost.github.io/stylus/),
 [DefinitelyTyped](http://definitelytyped.org/tsd/), [Material Design Lite](https://www.getmdl.io/), [SCSS](http://sass-lang.com/),
 [Webpack](https://webpack.github.io/)
 
-## Install npm dependencies
+## Install NPM dependencies
 
 Make sure you already have NodeJS and Git installed, then
 
@@ -52,12 +52,12 @@ $ gulp watchrun
 ```
 
 Build a minified version of your JavaScripts and CSS files
- 
+
 ```
 $ gulp release
 ```
 
-Build and test run the minified version of your JavaScripts and CSS files 
+Build and test run the minified version of your JavaScripts and CSS files
 
 ```
 $ gulp releaserun
@@ -69,17 +69,16 @@ For `run`, `watchrun` or `releaserun` tasks, navigate to the following URL:
 http://localhost:3000
 ```
 
-## Development Workflow
+## Application Structure
 
-TBA
+A strict application structure isn't enforced however keeping it simple gives more benefits in the long run.
+You could try and follow what John Papa suggested in his [Angular2 Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a2/README.md)
+called [LIFT](https://github.com/johnpapa/angular-styleguide/blob/master/a2/README.md#style-y140)
 
-## Need Help ?
+## Folder Structure
 
-https://github.com/rixrix/stencil/issues
-
-## Want to help ?
-
-Pull request https://github.com/rixrix/stencil/pulls
+* Client: Core frontend and its components
+* Server: Core server components
 
 ## License
 
