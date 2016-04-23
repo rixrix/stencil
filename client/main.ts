@@ -17,10 +17,15 @@ import {
     APP_BASE_HREF
 } from 'angular2/router';
 
+import {
+    HomeComponent
+} from './home/home-component'
+
 @Component({
     selector: 'stencil-app',
     directives: [
-        ROUTER_DIRECTIVES
+        ROUTER_DIRECTIVES,
+        HomeComponent
         ],
     template: require('./main.html')
 })
