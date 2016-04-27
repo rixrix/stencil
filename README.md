@@ -11,7 +11,7 @@ A horribly simple starter template for all your Angular2 frontend development
 
 ## Install NPM dependencies
 
-Make sure you already have NodeJS and Git installed, then
+Make sure you already have NodeJS, [Typings](https://www.npmjs.com/package/typings), and Git installed, then
 
 ```
 $ git clone https://github.com/rixrix/stencil.git
