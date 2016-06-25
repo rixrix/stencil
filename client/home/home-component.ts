@@ -1,10 +1,6 @@
-/// <reference path="../libs.d.ts" />
+/// <reference path="../main.d.ts" />
 
-import {
-    Component,
-    AfterContentInit,
-    ElementRef
-} from 'angular2/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'home',
@@ -12,7 +8,7 @@ import {
 })
 
 export class HomeComponent {
-    constructor(private element: ElementRef) {
+    constructor() {
         // no-op
     }
 }

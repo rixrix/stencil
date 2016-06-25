@@ -1,0 +1,25 @@
+{
+  "name": "stencil",
+  "authors": [
+    "Richard Sentino <richard@mingdinative.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [
+    "es6"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6",
+    "lodash": "^4.13.1",
+    "material-design-lite": "^1.1.3"
+  }
+}

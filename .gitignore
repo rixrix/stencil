@@ -29,7 +29,6 @@ node_modules
 
 # custom
 build
-typings
 .idea
 dist
 .vscode
