@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/rixrix/stencil/compare/v1.1.0...v1.2.0) (2016-06-25)
+
+
+### Bug Fixes
+
+* **app:** fix application path ([4111288](https://github.com/rixrix/stencil/commit/4111288))
+
+
+### Features
+
+* **angular2:** upgrade to Angular2 RC3 release. fixes [#22](https://github.com/rixrix/stencil/issues/22) ([fdcdd1a](https://github.com/rixrix/stencil/commit/fdcdd1a)), closes [#22](https://github.com/rixrix/stencil/issues/22)
+* **build:** use `conventional-changelog` for automating semver,changelog and github releases ([5637770](https://github.com/rixrix/stencil/commit/5637770))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/rixrix/stencil/compare/1.0.0...v1.1.0) (2016-04-23)
 
