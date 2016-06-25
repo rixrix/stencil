@@ -1,45 +1,64 @@
-/// <reference path="libs.d.ts" />
+/// <reference path="./main.d.ts" />
 
-require('./main.scss');
+import { bootstrap } from '@angular/platform-browser-dynamic';
+import { PLATFORM_DIRECTIVES } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { PLATFORM_PIPES } from '@angular/core';
+import { FORM_PROVIDERS, COMMON_DIRECTIVES, APP_BASE_HREF } from '@angular/common';
+import { HTTP_PROVIDERS } from '@angular/http';
+import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
+/* tslint:disable */
+import { provide } from '@angular/core';
+/* tslint:enable */
 
-import {
-    bootstrap
-} from 'angular2/platform/browser';
-import {
-    Component,
-    provide
-} from 'angular2/core';
-import {
-    ROUTER_PROVIDERS,
-    LocationStrategy,
-    PathLocationStrategy,
-    ROUTER_DIRECTIVES,
-    APP_BASE_HREF
-} from 'angular2/router';
+import { AppComponent } from './app.component';
 
-import {
-    HomeComponent
-} from './home/home-component'
+/******************************************************************************
+ * pipes
+ *****************************************************************************/
+const APPLICATION_PIPES = [];
+const PIPES = [
+  { provide: PLATFORM_PIPES, multi: true, useValue: APPLICATION_PIPES }
+];
 
-@Component({
-    selector: 'stencil-app',
-    directives: [
-        ROUTER_DIRECTIVES,
-        HomeComponent
-        ],
-    template: require('./main.html')
-})
+/******************************************************************************
+ * directives
+ *****************************************************************************/
+const APPLICATION_DIRECTIVES = [
+  ...ROUTER_DIRECTIVES
+];
+const DIRECTIVES = [
+  COMMON_DIRECTIVES,
+  { provide: PLATFORM_DIRECTIVES, multi: true, useValue: APPLICATION_DIRECTIVES }
+];
 
-export class StencilApp {
-    constructor() {
-        // no-op
-    }
-}
+/******************************************************************************
+ * providers
+ *****************************************************************************/
+const APPLICATION_PROVIDERS = [
+  ...FORM_PROVIDERS,
+  ...HTTP_PROVIDERS,
+  ...ROUTER_PROVIDERS
+];
+const PROVIDERS = [
+  ...APPLICATION_PROVIDERS
+];
 
-bootstrap(
-    StencilApp, [
-        ROUTER_PROVIDERS,
-        provide(LocationStrategy, { useClass: PathLocationStrategy }),
-        provide(APP_BASE_HREF, { useValue: '/main' })
-    ]
-);
+/******************************************************************************
+ * production or development mode (dev default)
+ *****************************************************************************/
+
+// enableProdMode();
+
+/******************************************************************************
+ * Angular bootstrap/setup section
+ *****************************************************************************/
+
+bootstrap(AppComponent, [
+    ...PIPES,
+    ...DIRECTIVES,
+    ...PROVIDERS,
+    { provide: APP_BASE_HREF, useValue: '/' }
+])
+.then(success => console.log(`Bootstrap success`))
+.catch(error => console.log(error));

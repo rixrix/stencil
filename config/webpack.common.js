@@ -24,7 +24,7 @@ const vendors = [
 ];
 
 const app = [
-  './app/main.ts'
+  './client/main.ts'
 ];
 
 const SOURCE_DIR = 'client';

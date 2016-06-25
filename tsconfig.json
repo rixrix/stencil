@@ -1,14 +1,26 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "declaration": false,
-        "noImplicitAny": false,
-        "removeComments": true,
-        "noLib": false,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "sourceMap": false
-    },
-    "files": []
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noEmitHelpers": false
+  },
+  "exclude": [
+    "node_modules",
+    "typings/index.d.ts"
+  ],
+  "filesGlob": [
+    "app/**/*.ts",
+    "platform/**/*.ts",
+    "!node_modules/**",
+    "typings/index.d.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "resolveGlobs": true,
+    "forkChecker": true
+  },
+  "compileOnSave": false,
+  "buildOnSave": false
 }
