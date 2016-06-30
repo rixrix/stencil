@@ -1,35 +1,12 @@
-/**
- * @author: @AngularClass
- */
+// credits @AngularClass
 
 const webpack = require('webpack');
 const helpers = require('./helpers');
 
-const polyfills = [
-  'core-js/client/core.min',
-  'zone.js/dist/zone',
-  'ts-helpers'
-];
-
-const vendors = [
-  '@angular/platform-browser-dynamic',
-  '@angular/platform-browser',
-  '@angular/core',
-  '@angular/common',
-  '@angular/http',
-  '@angular/compiler',
-  '@angular/router-deprecated',
-  'rxjs/add/operator/map',
-  'rxjs/add/operator/mergeMap'
-];
-
-const app = [
-  './client/main.ts'
-];
-
 const SOURCE_DIR = 'client';
-
-var tsLintConfiguration = require('../tslint');
+const POLYFILLS_ENTRY_POINT = './' + SOURCE_DIR +'/polyfills.ts';
+const VENDORS_ENTRY_POINT = './' + SOURCE_DIR +'/vendors.ts';
+const MAIN_ENTRY_POINT = './' + SOURCE_DIR +'/main.ts';
 
 /*
  * Webpack Plugins
@@ -77,9 +54,9 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#entry
    */
   entry: {
-    'polyfills': polyfills,
-    'vendor': vendors,
-    'main': app
+    'polyfills': POLYFILLS_ENTRY_POINT,
+    'vendor': VENDORS_ENTRY_POINT,
+    'main': MAIN_ENTRY_POINT
   },
 
   /*
@@ -100,7 +77,7 @@ module.exports = {
     root: helpers.root(SOURCE_DIR),
 
     // remove other default values
-    modulesDirectories: ['node_modules', 'components'],
+    modulesDirectories: ['node_modules'],
 
     alias: {
 
@@ -127,11 +104,7 @@ module.exports = {
        *
        * See: https://github.com/wbuchwalter/tslint-loader
        */
-       {
-         test: /\.ts$/,
-         loader: 'tslint-loader',
-         exclude: [ helpers.root('node_modules') ]
-        },
+       { test: /\.ts$/, loader: 'tslint-loader', exclude: [ helpers.root('node_modules') ] },
 
       /*
        * Source map loader support for *.js files
@@ -265,8 +238,6 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: SOURCE_DIR + '/assets',
       to: 'assets'
-    }, {
-      from: SOURCE_DIR + '/manifest.webapp'
     }]),
 
     /*
@@ -280,11 +251,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: SOURCE_DIR + '/index.html',
       chunksSortMode: 'dependency'
-    }),
-
-    new webpack.ResolverPlugin(
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
-    )
+    })
 
   ],
 
@@ -300,8 +267,6 @@ module.exports = {
     module: false,
     clearImmediate: false,
     setImmediate: false
-  },
-
-  tslint: tsLintConfiguration
+  }
 
 };

@@ -1,6 +1,4 @@
-/**
- * @author: @AngularClass
- */
+// credits: @AngularClass
 
 const helpers = require('./helpers');
 
@@ -212,8 +210,8 @@ module.exports = {
    * See: https://github.com/wbuchwalter/tslint-loader
    */
   tslint: {
-    emitErrors: true,
-    failOnHint: true,
+    emitErrors: false,
+    failOnHint: false,
     resourcePath: SOURCE_DIR
   },
 

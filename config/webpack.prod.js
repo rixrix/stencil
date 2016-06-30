@@ -1,6 +1,4 @@
-/**
- * @author: @AngularClass
- */
+// credits: @AngularClass
 
 const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
@@ -28,6 +26,7 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   ENV: ENV,
   HMR: false
 });
+
 const OUTPUT_DIR = 'dist';
 const SOURCE_DIR = 'client';
 

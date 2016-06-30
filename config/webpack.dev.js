@@ -1,6 +1,4 @@
-/**
- * @author: @AngularClass
- */
+// credits: @AngularClass
 
 const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
@@ -22,6 +20,7 @@ const METADATA = webpackMerge(commonConfig.metadata, {
   ENV: ENV,
   HMR: HMR
 });
+
 const OUTPUT_DIR = 'dist';
 const SOURCE_DIR = 'client';
 
@@ -123,8 +122,8 @@ module.exports = webpackMerge(commonConfig, {
    * See: https://github.com/wbuchwalter/tslint-loader
    */
   tslint: {
-    emitErrors: true,
-    failOnHint: true,
+    emitErrors: false,
+    failOnHint: false,
     resourcePath: SOURCE_DIR
   },
 
