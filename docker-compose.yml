@@ -1,0 +1,10 @@
+stencil:
+  build: .
+  command: ls /home/app/stencil
+  environment:
+    NODE_ENV: development
+  ports:
+    - '8080:8080'
+  volumes:
+    - .:/home/app/stencil
+    - /home/app/stencil/node_modules
