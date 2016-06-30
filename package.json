@@ -1,6 +1,6 @@
 {
   "name": "stencil",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A horribly simple starter template for all your Angular2 frontend development",
   "scripts": {
     "release": "./node_modules/.bin/standard-version && ./node_modules/.bin/conventional-github-releaser -p angular -t $CONVENTIONAL_GITHUB_RELEASER_TOKEN",
@@ -25,7 +25,6 @@
     "gh-pages": "^0.11.0",
     "parse5": "^1.5.1",
     "rimraf": "^2.5.2",
-
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.0.0",
@@ -33,20 +32,15 @@
     "karma-mocha-reporter": "^2.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "1.7.0",
-
     "remap-istanbul": "^0.6.3",
-
     "protractor": "^3.2.2",
-
     "codelyzer": "~0.0.21",
-
     "tslint": "^3.7.1",
     "ts-helpers": "1.1.1",
     "ts-node": "^0.9.1",
     "typedoc": "^0.4.3",
     "typescript": "~1.8.10",
     "typings": "~1.3.0",
-
     "awesome-typescript-loader": "^0.17.0",
     "angular2-template-loader": "^0.4.0",
     "tslint-loader": "^2.1.3",
@@ -63,17 +57,16 @@
     "expose-loader": "^0.7.1",
     "file-loader": "^0.9.0",
     "to-string-loader": "^1.1.4",
-
     "html-webpack-plugin": "^2.21.0",
     "copy-webpack-plugin": "^3.0.1",
-
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-md5-hash": "^0.0.5",
     "webpack-merge": "^0.14.0",
-
     "node-sass": "^3.8.0",
-    "sass-loader": "^3.2.0"
+    "sass-loader": "^3.2.0",
+    "standard-version": "^2.3.1",
+    "conventional-github-releaser": "^1.1.3"
   },
   "dependencies": {
     "@angular/http": "2.0.0-rc.3",

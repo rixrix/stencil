@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/rixrix/stencil/compare/v1.2.0...v1.3.0) (2016-06-30)
+
+
+### Features
+
+* **angular:** update to Angular rc3 release ([7ac17bf](https://github.com/rixrix/stencil/commit/7ac17bf))
+* **http:** add http service thin wrapper for Http utility ([3c9d717](https://github.com/rixrix/stencil/commit/3c9d717))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/rixrix/stencil/compare/v1.1.0...v1.2.0) (2016-06-25)
 
