@@ -1,12 +1,12 @@
 import { PLATFORM_DIRECTIVES, PLATFORM_PIPES } from '@angular/core';
-import { provideRouter, ROUTER_DIRECTIVES } from '@angular/router';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HTTP_PROVIDERS } from '@angular/http';
-//import { REACTIVE_FORM_DIRECTIVES, disableDeprecatedForms, provideForms } from '@angular/forms';
+// import { REACTIVE_FORM_DIRECTIVES, disableDeprecatedForms, provideForms } from '@angular/forms';
 
 const APPLICATION_DIRECTIVES = [
 	...ROUTER_DIRECTIVES
-	//...REACTIVE_FORM_DIRECTIVES
+	// ...REACTIVE_FORM_DIRECTIVES
 ];
 
 const DIRECTIVES = [

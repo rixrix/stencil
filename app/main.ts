@@ -6,7 +6,7 @@
  *****************************************************************************/
 
 // load polyfill/vendor libraries
-import './libs'
+import './libs';
 
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { provideRouter } from '@angular/router';
