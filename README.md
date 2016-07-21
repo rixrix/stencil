@@ -4,8 +4,8 @@ A horribly simple starter template for all your Angular2 frontend development
 
 ## Technologies
 
-[GulpJS](http://gulpjs.com/), [TypeScript](http://www.typescriptlang.org/), [Angular2](https://angular.io/),
-[NodeJS](https://nodejs.org/), [ExpressJS](http://expressjs.com/), [Stylus](http://learnboost.github.io/stylus/),
+[TypeScript](http://www.typescriptlang.org/), [Angular2 - RC3](https://angular.io/),
+[NodeJS](https://nodejs.org/), [Stylus](http://learnboost.github.io/stylus/),
 [DefinitelyTyped](http://definitelytyped.org/tsd/), [Material Design Lite](https://www.getmdl.io/), [SCSS](http://sass-lang.com/),
 [Webpack](https://webpack.github.io/)
 
@@ -19,66 +19,22 @@ $ cd </path/to/stencil/cloned/folder>
 $ npm install
 ```
 
-## Gulp commands
+## Commands
 
-By default if you don't specify any parameter it will invoke `watchrun`
-
+Starts a development server at http://localhost:8080
 ```
-$ gulp
-```
-
-Build only:
-
-```
-$ gulp build
+$ npm start
 ```
 
-Run only:
+Builds a production release and copy files in `dist/` folder
 
 ```
-$ gulp run
+$ npm run build
 ```
 
-Automatically build when a file changes:
+## Development Style Guide
 
-```
-$ gulp watch
-```
-
-Automatically build and run when a file changes:
-
-```
-$ gulp watchrun
-```
-
-Build a minified version of your JavaScripts and CSS files
-
-```
-$ gulp release
-```
-
-Build and test run the minified version of your JavaScripts and CSS files
-
-```
-$ gulp releaserun
-```
-
-For `run`, `watchrun` or `releaserun` tasks, navigate to the following URL:
-
-```
-http://localhost:3000
-```
-
-## Application Structure
-
-A strict application structure isn't enforced however keeping it simple gives more benefits in the long run.
-You could try and follow what John Papa suggested in his [Angular2 Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a2/README.md)
-called [LIFT](https://github.com/johnpapa/angular-styleguide/blob/master/a2/README.md#style-y140)
-
-## Folder Structure
-
-* Client: Core frontend and its components
-* Server: Core server components
+Check [Angular2 Style Guide](https://angular.io/styleguide)
 
 ## License
 
