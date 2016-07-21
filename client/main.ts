@@ -5,12 +5,14 @@
  *       Check `./app.component.ts` for apps routes, behaviours, etc
  *****************************************************************************/
 
+// load polyfill/vendor libraries
+import './libs'
+
 import { bootstrap } from '@angular/platform-browser-dynamic';
-import { PLATFORM_PROVIDERS } from './platform/browser';
-import { ENV_PROVIDERS } from './platform/environment';
 import { provideRouter } from '@angular/router';
 
-import { routes, BASE_REF } from './app.component.routes';
+import { PLATFORM_PROVIDERS } from './platform';
+import { APP_COMPONENT_ROUTES, APP_COMPONENT_BASE_HREF } from './app.component.routes';
 import { AppComponent } from './app.component';
 
 /******************************************************************************
@@ -19,9 +21,8 @@ import { AppComponent } from './app.component';
 
 bootstrap(AppComponent, [
     ...PLATFORM_PROVIDERS,
-    ...ENV_PROVIDERS,
-    provideRouter(routes),
-    BASE_REF
+    provideRouter(APP_COMPONENT_ROUTES),
+    APP_COMPONENT_BASE_HREF
 ])
 .then(success => console.log(`Bootstrap success`))
 .catch(error => console.log(error));

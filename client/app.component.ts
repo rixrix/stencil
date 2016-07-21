@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { HttpService } from './services/http.service';
 
@@ -12,9 +11,6 @@ import { HttpService } from './services/http.service';
     ],
     providers: [
         HttpService
-    ],
-    directives: [
-        ROUTER_DIRECTIVES
     ]
 })
 

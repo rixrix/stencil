@@ -1,48 +1,27 @@
-// NOTE:
-// This is an entry for webpack
-
-// import 'ie-shim'; // Internet Explorer 9 support
-
-// import 'core-js/es6';
-// Added parts of es6 which are necessary for your project or your browser support requirements.
-import 'core-js/es6/symbol';
-import 'core-js/es6/object';
-import 'core-js/es6/function';
-import 'core-js/es6/parse-int';
-import 'core-js/es6/parse-float';
-import 'core-js/es6/number';
-import 'core-js/es6/math';
-import 'core-js/es6/string';
-import 'core-js/es6/date';
-import 'core-js/es6/array';
-import 'core-js/es6/regexp';
-import 'core-js/es6/map';
-import 'core-js/es6/set';
-import 'core-js/es6/weak-map';
-import 'core-js/es6/weak-set';
-import 'core-js/es6/typed';
-import 'core-js/es6/reflect';
-// see issue https://github.com/AngularClass/angular2-webpack-starter/issues/709
-// import 'core-js/es6/promise';
-
-import 'core-js/es7/reflect';
+/******************************************************************************
+ * polyfill libraries
+ *****************************************************************************/
+import 'core-js/client/shim';
 import 'zone.js/dist/zone';
-
-// Typescript emit helpers polyfill
 import 'ts-helpers';
 
-// FIXME
-let ENV = 'development';
+/******************************************************************************
+ * vendors/3rd party libraries
+ *****************************************************************************/
+import '@angular/platform-browser';
+import '@angular/platform-browser-dynamic';
+import '@angular/core';
+import '@angular/common';
+import '@angular/forms';
+import '@angular/http';
+import '@angular/router';
+import 'rxjs';
 
-if ('production' === ENV) {
-  // Production
+// AngularClass
+import '@angularclass/webpack-toolkit';
+import '@angularclass/request-idle-callback';
 
-
-} else {
-  // Development
-
-  (<any>Error).stackTraceLimit = Infinity;
-
-  require('zone.js/dist/long-stack-trace-zone');
-
-}
+// TODO: for testing purposes only
+import 'angular2-hmr';
+(<any>Error).stackTraceLimit = Infinity;
+require('zone.js/dist/long-stack-trace-zone');

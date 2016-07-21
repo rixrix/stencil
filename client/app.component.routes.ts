@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 
 // base path
-export const BASE_REF = {
+export const APP_COMPONENT_BASE_HREF = {
     provide: APP_BASE_HREF, useValue: '/'
 };
 
@@ -13,7 +13,7 @@ export const BASE_REF = {
  * Main application routes
  *****************************************************************************/
 
-export const routes: RouterConfig = [
+export const APP_COMPONENT_ROUTES: RouterConfig = [
     { path: '', redirectTo: '/home', terminal: true },
     { path: 'home', component: HomeComponent },
     { path: 'about', component: AboutComponent }
