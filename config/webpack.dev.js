@@ -22,7 +22,7 @@ const METADATA = webpackMerge(commonConfig.metadata, {
 });
 
 const OUTPUT_DIR = 'dist';
-const SOURCE_DIR = 'client';
+const SOURCE_DIR = 'app';
 
 /**
  * Webpack configuration

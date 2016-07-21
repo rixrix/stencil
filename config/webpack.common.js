@@ -3,9 +3,7 @@
 const webpack = require('webpack');
 const helpers = require('./helpers');
 
-const SOURCE_DIR = 'client';
-const POLYFILLS_ENTRY_POINT = './' + SOURCE_DIR +'/polyfills.ts';
-const VENDORS_ENTRY_POINT = './' + SOURCE_DIR +'/vendors.ts';
+const SOURCE_DIR = 'app';
 const MAIN_ENTRY_POINT = './' + SOURCE_DIR +'/main.ts';
 
 /*
@@ -54,8 +52,6 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#entry
    */
   entry: {
-    'polyfills': POLYFILLS_ENTRY_POINT,
-    'vendor': VENDORS_ENTRY_POINT,
     'main': MAIN_ENTRY_POINT
   },
 

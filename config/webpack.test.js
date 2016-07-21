@@ -2,7 +2,7 @@
 
 const helpers = require('./helpers');
 
-const SOURCE_DIR = 'client';
+const SOURCE_DIR = 'app';
 
 /**
  * Webpack Plugins
