@@ -36,6 +36,10 @@ $ npm run build
 
 Check [Angular2 Style Guide](https://angular.io/styleguide)
 
+## Credits
+
+A million thanks to [AngularClass](https://github.com/AngularClass/angular2-webpack-starter)
+
 ## License
 
 Distributed under [MIT License](http://opensource.org/licenses/MIT)
