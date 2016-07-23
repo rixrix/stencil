@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Stream, Cell } from 'sodiumjs';
 
 @Component({
     selector: 'home',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
 })
 
 export class HomeComponent {
-    constructor() {}
+    constructor() {
+        console.log('Stream', Stream);
+        console.log('Cell', new Cell(12));
+    }
 }
